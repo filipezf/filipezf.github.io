@@ -66,7 +66,7 @@ html {
 body {
   /* background: #fff; */
   background:#f6f6ef;
-  font: 16px/1.4 Helvetica, Arial, sans-serif;
+  font: 16px/1.4 "Open Sans", Helvetica, Arial, sans-serif;
   color: #333;
 }
 
@@ -78,7 +78,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Vollkorn", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #222;
   font-weight: bold;
   line-height: 1.7;
