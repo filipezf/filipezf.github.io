@@ -1,63 +1,75 @@
-<p>﻿ <html>
+<html>
 <head>
 <meta charset="UTF-8">
 <link rel='stylesheet' href='style1.css'/>
+<title>Social AI</title>
 </head></p>
 
 <p><body>
-<div class="container"></p>
+<div class="container" ></p>
 
-<h1>Making social AI</h1>
-
-https://arxiv.org/pdf/1910.03230.pdf
+<h1>Developing Social AI</h1>
 
 <p><div style="overflow: hidden;"><div class="quote"><em>
 What I cannot create, I do not understand<br>  Richard Feynman</em></div></div><p></p></p>
 <p><div style="overflow: hidden;"><div class="quote"><em> 
-Instead of trying to produce a programme to simulate the adult mind, why not rather try to produce one which simulates the child's?</em><br> Alan Turing </div></div><p></p></p>
+Instead of trying to produce a programme to simulate the adult mind,<br> why not rather try to produce one which simulates the child's?</em><br> Alan Turing </div></div><p></p></p>
 
-<div style='background-color:EEFFFF'><!-- div style='border: 2px solid rgb(200, 0,0); padding: 5px;  border-radius: 15px;'-->
-
-
-it will build models of the world, for explanation, imagination, planning, implementing symbolic reasoning atop numerica.
-Will improve by self-play and user teaching and hard-coging skills/algorithms whereve is efficient.
-<br>
-For implementing social agents, we believe it is better fix ther foundations of behaviors instead of gaining percent points on the billion-parameter language model of the week. 
-For tha ,a and 
-Implement initially a basic language with interrogatives, conditionals, imperatives, causality, actors, imaginary sequences of events. Later will impleent social / moral concepts on that basis.
-<br>
-<a href = 'https://arxiv.org/abs/1610.03585'> Grounding on a environment</a> (
-
-<br>
-generative networks for past/future/capabilities/event/etc-generation past,future,capabilities networks trained at time-steps
-<br> concept nodes where probabilistic sqeuentes generate more abstract concepts.
-<br>    multi-step pondering ( vqa) user input
-<br>    supervised learning users code expected reaction to events
- <br>   reinforcement learning: self-play (alphazero, deal or no-deal)
- <br>   users evaluate actions
- <br>   time processing ?
- <br>   theory of mind (bayesian) - trains with
- <br>   user input 
+<div>
+<p>
+This project dual work of understanding how people can manage social relationhips at the same time that implement them into Artificial Intelligence.
+</p><p>
+Recent developments in Machine Learning and collective effort can lead us a long way into this. 
+While most use huge neural networks with implicit knowledge, our social AI will build models of the world, for explanation, imagination, planning,  After all, <em>consciousness itself happens when are manipulating world models.</em>
+</p>We propose:
+ <ul>
+ <li class='big-li'><a href = 'https://arxiv.org/abs/1610.03585'> Grounding on a environment </a> (<a href='#env'>see below</a>) that exercises social abilities (in a abstract way; We will ignore audio-visual and motor abilities for now.)</li>
  
- 
-<details><summary>Implement "infant-like knowledge representations"  (vs waiting the Gradient descent to work)</summary>
+ <li class='big-li'><details><summary>Implement "infant-like knowledge representations"  (vs waiting the Gradient descent to work)</summary>
 <blockquote>
-  <p><em>Finally, we recognize that some researchers still hold out hope that if only they can just get big enough training datasets, sufficiently rich tasks, and enough computing power -- far beyond what has been tried out so far -- then deep learning methods might be sufficient to learn representations equivalent to what evolution and learning provides humans with. We can sympathize with that hope and believe it deserves further exploration, although we are not sure it is a realistic one. We understand in principle how evolution could build a brain with the cognitive ingredients we discuss here. Stochastic hill-climbing is slow -- it may require massively parallel exploration, over millions of years with innumerable dead-ends -- but it can build complex structures with complex functions if we are willing to wait long enough. In contrast, trying to build these representations from scratch using backpropagation, deep Q-learning or any stochastic gradient-descent weight update rule in a fixed network architecture may be unfeasible regardless of how much training data are available. To build these representations from scratch might require exploring fundamental structural variations in the network's architecture, which gradient-based learning in weight space is not prepared to do. Although deep learning researchers do explore many such architectural variations, and have been devising increasingly clever and powerful ones recently, it is the researchers who are driving and directing this process. Exploration and creative innovation in the space of network architectures have not yet been made algorithmic. Perhaps they could, using genetic programming methods or other structure-search algorithms . We think this would be a fascinating and promising direction to explore, but we may have to acquire more patience than machine learning researchers typically express with their algorithms: the dynamics of structure-search may look much more like the slow random hill-climbing of evolution than the smooth, methodical progress of stochastic gradient-descent. An alternative strategy is to build in appropriate infant-like knowledge representations and core ingredients as the starting point for our learning-based AI systems, or to build learning systems with strong inductive biases that guide them in this direction.</em>
+  <p><em>Finally, we recognize that some researchers still hold out hope that if only they can just get big enough training datasets, sufficiently rich tasks, and enough computing power -- far beyond what has been tried out so far -- then deep learning methods might be sufficient to learn representations equivalent to what evolution and learning provides humans with. We can sympathize with that hope and believe it deserves further exploration, although we are not sure it is a realistic one. We understand in principle how evolution could build a brain with the cognitive ingredients we discuss here.<b> Stochastic hill-climbing is slow -- it may require massively parallel exploration, over millions of years with innumerable dead-ends -- but it can build complex structures with complex functions if we are willing to wait long enough. In contrast, trying to build these representations from scratch using backpropagation, deep Q-learning or any stochastic gradient-descent weight update rule in a fixed network architecture may be unfeasible regardless of how much training data are available. To build these representations from scratch might require exploring fundamental structural variations in the network's architecture, which gradient-based learning in weight space is not prepared to do.</b> Although deep learning researchers do explore many such architectural variations, and have been devising increasingly clever and powerful ones recently, it is the researchers who are driving and directing this process. Exploration and creative innovation in the space of network architectures have not yet been made algorithmic. Perhaps they could, using genetic programming methods or other structure-search algorithms . We think this would be a fascinating and promising direction to explore, but we may have to acquire more patience than machine learning researchers typically express with their algorithms: the dynamics of structure-search may look much more like the slow random hill-climbing of evolution than the smooth, methodical progress of stochastic gradient-descent. An alternative strategy is to build in appropriate infant-like knowledge representations and core ingredients as the starting point for our learning-based AI systems, or to build learning systems with strong inductive biases that guide them in this direction.</em>
 <a href="https://arxiv.org/abs/1604.00289">Building Machines That Learn and Think Like People</a></p>
-</blockquote></details>
-<details><summary>Why we may need to hand-hold the agents?</summary>
+</blockquote></details></li>
+ 
+ <li class='big-li'> Nodes representing basic features: agents, words, times, events, numbers, energy, etc. Probabilistic activations and sqeuences implement more abstract concepts.</li>
+ 
+ <li class='big-li'> Start with a basic language containing <a href='Roadmap.html#InitLang'> interrogatives, conditionals, imperatives, causality, actors, imaginary sequences of events</a>. Social / moral concepts will be later defined atop these representations. </li>
+ 
+ 
+ <li class='big-li'>Reinforcement Learinig with self-play for comprehensive/automatic exploration of new social scenarios
+    (<a href='https://en.wikipedia.org/wiki/AlphaZero'>Alphazero</a>, <a href='References.html#DealDeal'>Negotiatition</a>)</li>
+     
+<li class='big-li'><a href='Roadmap.html#PredNet'>Generative networks for past/ future/ capabilities/ event generation, trained at each time step with actual events.</a></li>
+
+<li class='big-li'>  <a href='References.html#CompReason'> Multi-hop reasoning </a>for complex mental operations such as question answering and planning. </li>
+
+ <li class='big-li'>  Interactive training: <a href='References.html#Annabel'>users evaluate </a> if the action is correct in a scenario
+        <a href='References.html#Dungeon'>and suggest better options .</a>  
+        <em>(TODO: save retraining effort when the architecture is updated)</em>
+        </li>
+        
+ <li class='big-li'>   Processing of events and (real or imaginary) temporal sequences <em>(work in progress)</em> </li>
+ 
+  <li class='big-li'> <a href='Roadmap.html#FPS'>Social planning </a> [<a href='References.html#SocialPlan'>1</a>,<a href='References.html#LogicTom1'>2</a> , <a href='References.html#LogicToM3'>3</a>] with <a href='References.html#Indspeech'>Sophisticated language use</a>,   
+  using <a href='References.html#BayesToM'>bayesian</a><a href='References.html#PragmaticLang'> reasoning</a> to understand other minds 
+  and <a href='References.html#LogRuleInd'>rule extraction</a> for interpretability</li>
+
+<li class='big-li'>
+<details><summary>Coding skills directly when alternatives are not efficient</summary>
 <blockquote>
   <p><em>This raises the question of how humans might learn even more abstract tasks,and Bengio (2013b) studies the hypothesis that the use of language and the evolution of culture could have helped humans reduce that difficulty(...) The basic idea is that humans (and current learning algorithms) are limited to “local descent” optimization methods, that make small changes in the parameter values with the effect of reducing the expected loss in average. This is clearly prone to the presence of local minima, while a more global search (in the spirit of both genetic and cultural evolu tion) could potentially reduce this difficulty. One hypothesis is that more abstract learning tasks involve more challenging optimization difficulties, which would make such global optimization algorithms necessary if we want computers to learn such abstractions from scratch. Another option, following the idea of curriculum learning (Bengio et al., 2009), is to provide guidance ourselves to learning machines (as exemplified in the toy example of Gulcehre and Bengio (2013)), by “teaching them” gradually more complex concepts to help them understand the world around us (<b>keeping in mind that we also have to do that for humans and that it takes 20 years to complete</b>).</em> 
-<a href="https://arxiv.org/abs/1203.2990">Evolving Culture vs Local Minima, Y Bengio</a></p>
+<a href="https://arxiv.org/abs/1203.2990">Evolving Culture vs Local Minima, Y Bengio
+</a>
+</p>
 </blockquote>
 </details>
-
- 
+</li>
+</ul>
 </div>
 <hr>
-<a href='#'>Try it</a>
-<span >
-<details style='font-size:80%'><summary>More info about the present status</summary>
+
+
+<details style='font-size:100%'><summary>More info about the present status</summary>
 
 <p>The present code iteration used hard-coded naive heuristics of language use. The interactions use a json-like expression instead of a natural language. 
 </p><p>
@@ -68,10 +80,12 @@ The results were inconclusive.<a href= 'https://openai.com/blog/ai-and-compute' 
 Now is the hard work of implementing reasoning skills and teaching lessons whenever gradient descent is too slow.  
 </p>
 </details>
+<a href='#' style='font-size:150%'>Try it</a><br>
+<a href='Roadmap.html' style='font-size:150%' >Roadmap </a><br>
 
-<a href='#'>Code</a><br>
-<a href='etc/index-etc.html' style='font-size:80%'>Other stuff</a><br>
-<a href='etc/squares/d.html' style='font-size:80%'>Original Squares Project</a>
+<a href='#' style='font-size:150%'>Code</a><br>
+<a href='etc/index-etc.html' style='font-size:100%'>Other stuff</a><br>
+<a href='etc/squares/d.html' style='font-size:100%'>Original Squares Project</a>
 <br><hr><br>
 
 
@@ -94,47 +108,15 @@ One possible future for the open world game may be na experience that combnins t
 
 </li>
 <li>research on (Evolutionary) Psychology</li>
-<li> consciousness,qualia and the Value Alignment problem <a href="consc.html">(More details)</a> </li>
+<li> Consciousness, qualia and the <em>Value Alignment problem</em> <a href="Consc.html">(More details)</a> </li>
 </ul>
 
-
-
-
-
-
+<a name='env'></a>
 <h1>Environment and Evolutionary Psychology</h1>
 
 <p><div style="overflow: hidden;"><div class="quote"><em>
 It's a gene-eat-gene world
  </em></div></div><p></p></p>
-
-<p>The environment used to explore the human psychology and how it evolved</p>
-
-<p>Our environment will lead to interpersonal competiiton as a driver for interesting phenomena . The amount of food is limited and thea gents have to compete for mates, feed theis children and relate to peers and kin They can forage food, give or hit (remove) energy to/from other agents, and mate leading to offsring. Agents may have inheritable fitness <a href="references.html#AttMate">AttMate</a>  and psychological characteristics. </p>
-
-<p>While we could evolve these algorithmes, to lessen computational costs the instints  drives(feed, mate, help kin and offspring, make friends etc), and emotions(happiness, sadness, fear, anger, surprise etc) will be to some extent hardcoded.</p>
-
-<p><div style="overflow: hidden;"><div class="quote"><em>
-Perfection is attained not when no more can be added, but when no more can be removed<br></em>
- Antoine de Saint Exupery
-</div></div><p></p></p>
-
-<p>The default environment is a bare-bones representation of aspects from the environment where our ancestors lived and where our  behavior evolved: small groups, foraging, sharing food. In principle we would not implement matarial obejcts; </p>
-
-<p>More concretely, it is a hypothetical land with enough food to support some 200 agents. Each agent has a gender, age and level of energy, that inreases by eating and decreases with age and sickness. If the energy reaches 0 the agent dies.</p>
-
-<p><img src="environment.png" alt="Environment" title="" /></p>
-
-<p>At each step the agents can take 4 kinds of actions:</p>
-
-<ul>
-<li>talk in private to a group of its choosing</li>
-<li>give energy/food/money from others (or hit to remove energy)</li>
-<li>mate </li>
-<li>forage food</li>
-</ul>
-
-<p>There is a probability that private actions  of other agents will be discovered by an random agent, leading eventually to gossip.</p>
 
 <p><blockquote>
 The human goal-system, which includes survival, social status, and morality, along with many others, is a mix of  adaptations to conditions in the human ancestral environment 
@@ -143,7 +125,38 @@ Even though the human mind evolved to serve evolutionary goals of reproductive s
 (Tooby and Cosmides 1992;  J. D. Greene 2002).
 </blockquote></p>
 
-<h3>Conflicts</h3>
+<p>The environment used to explore the human psychology and how it evolved</p>
+
+<p>Our environment will lead to interpersonal competiiton as a driver for interesting phenomena . The amount of food is limited and thea gents have to compete for mates, feed theis children and relate to peers and kin They can forage food, give or hit (remove) energy to/from other agents, and mate leading to offsring. Agents may have inheritable fitness <a href="References.html#AttMate">AttMate</a>  and psychological characteristics. </p>
+
+<p>While we could evolve these algorithmes, to lessen computational costs the instints  drives(feed, mate, help kin and offspring, make friends etc), and emotions(happiness, sadness, fear, anger, surprise etc) will be to some extent hardcoded.</p>
+
+
+
+<p>The default environment is a bare-bones representation of aspects from the environment where our ancestors lived and where our  behavior evolved: small groups, foraging, sharing food. In principle we would not implement matarial obejcts; </p>
+
+<p>More concretely, it is a hypothetical land with enough food to support some 200 agents. Each agent has a gender, age and level of energy, that inreases by eating and decreases with age and sickness. If the energy reaches 0 the agent dies.</p>
+
+<p><div style="overflow: hidden;"><div class="quote"><em>
+Perfection is attained not when no more can be added, but when no more can be removed<br></em>
+ Antoine de Saint Exupery
+</div></div><p></p></p>
+
+<p><img src="environment.png" alt="Environment" title=""  class='center'/></p>
+
+<p>At each step the agents can take these actions:</p>
+
+<ul>
+<li>talk in private to a group of its choosing</li>
+<li>give energy/food/money from others (or hit to remove energy)</li>
+<li>mate </li>
+</ul>
+
+<p>There is a probability that private actions  of other agents will be discovered by an random agent, leading eventually to gossip.</p>
+
+
+
+<h3>Relationships</h3>
 
 <p><div style="overflow: hidden;"><div class="quote"><em> 
 Hell are other people </em><br> Sartre
@@ -154,9 +167,17 @@ I against my brother.<br> I and my brother against my cousin.
 <br> I, my brother and my cousin against the stranger</em><br> Bedouin proverb
 </div></div><p></p></p>
 
+<p><img src="relationships.png" alt="Environment" title=""  class='center' style='width:40%'/>
+<span class='center' style='font-size:70%;text-align:center'><a href='References.html#AlgoSoc'> Algorithms of Social Life:</a> 
+The author surveys the kinds of relationship <br>and their algorithmic, evolutionary and neural/hormonal contexts. </span> 
+</p>
+
+
 <p>The agents need to cooperate to forage the food and decide  how to share it. As the food is limited, competition arises between them.  They should decide how to allocate it between kin, mates and friends, and avoid or win conflicts. </p>
 
-<h3>About coalitions:</h3>
+
+
+<h3>Coalitions</h3>
 
 <p><!-- div style="overflow: hidden;"><div class="quote" -->
 <blockquote>
@@ -165,285 +186,28 @@ I against my brother.<br> I and my brother against my cousin.
 <!-- /div></div><p></p-->
 </p>
 
-
-<p>The use of a large population > 100, allows to explore the psychology of coalition-forming.</p>
+<li><a name="CoalitionRep"
+<p>The use of a large population > 100, allows to explore the <a href='References.html#Nperson'>psychology</a><a href='References.html#CoalitionRep'> of coalition-forming.</a></p>
 
 <p>They reproduce sexually, transmiting genes that control their behavior ( or use the number of grandchildren as a proxy to fitness to calculate gradientes for updating a neural network). So acquiring mates, childcare and building relationhips become crucial.</p>
 
-More stuff:
-
-<p><div style="overflow: hidden;"><div class="quote"><em> 
-Much of human life´s meaning arguably depends on the enjoyment, for its own sake, of humor,love, game-playing, art,sex, dancing, social conversation, philosophy, literature, scientific discovery, sport, food and drink, friendship and parenting
-</em></div></div><p></p></p>
-
-<h1>The agents' training</h1>
-
-
-<h1>Architecture</h1>
-
-<p><div style="overflow: hidden;"><div class="quote"><em> 
-Politics is like sausages, it is better not to know how they are made</em><br>
-Otto von Bismark
-</em></div></div><p></p></p>
-
-<p>Define a basic language and inplement childlike representation structures: </p>
-
-<p>We intend to imbue them with:</p>
-
-<blockquote>
-  <p><em>If LAS (a language learning model) were built like Winograd’s (1972) program to converse with another speaker instead of receiving sentences passively, it would have representational structures that conceivably could be useful in acquiring rules for interrogatives, conditionals, imperatives, and so on. And if it had a more childlike semantic representational system, which categorized the world into actors, actions, and recipients of actions, possessors and possessed, objects and locations, and so on, its linguistic abilities might even resemble those of young children</em> - <a href="references.html#LAS">Steven Pinker</a></p>
-</blockquote>
+<h3>Values</h3>
 
 <p>
-hard-coded utility/ drives from evolutionary psychology (how the mind works)
-    <br> TODO: evolve them later
-</p>
-<p>
-generative networks for past/future/capabilities/event/etc-generation
-past,future,capabilities networks trained at time-steps
-</p>
-<ul>
-<li> multi-step pondering ( vqa)
-   <font>user input</font>
-
-</li><li> supervised learning
-    <font color='red'>users code expected reaction to events</font>
-
-</li><li> reinforcement learning:
-   self-play (alphazero, deal or no-deal)
-   <br><font color='red'>users evaluate actions</font>
-
-</li><li> time processing 
-  ?
-
-</li><li> theory of mind (bayesian)
-   - trains with <br>
-   <font color='red'>user input</font>
-</ul>
-
-<details><summary>Concept nodes</summary>
-
-<p>Create nodes representing concepts: basic words, on node for each agent, numbers, events, etc</p>
-</details>
-
-<h4>INITIAL LANGUAGE:</h4>
-<table><th>agent names</th>
-<tr><td>basic verbs</td><td> move give speak </td></tr>
-<tr><td>logic</td><td> IF AND OR NOT YES TRUE because</td></tr>
-<tr><td>Theory of mind</td><td> want believe</td></tr>
-<tr><td>time</td><td> -ed will before after WHILE soon later _times</td></tr> 
-<tr><td>causality/action</td><td> if because try can should</td></tr>
-<tr><td></td><td>interrogatives, conditionals, imperatives</td></tr></table>
-
-<blockquote><font color='red'>
-  didn't work ? shoehorn skills until it works --- colaboration needed
-</font></blockquote>
-
-<details><summary>MORE LANGUAGE</summary>
-<h5>other basic words</h5>
-<p>
-pronouns: I you every/some/no-body<br>
-kin: father dagther mother son aunt uncle niece nephew cousin<br>
-wh - when what who where why which whom whither how how-much<br>
-probability: rarely seldom sometimes often always<br>
-quantitatives: no few some many ALL every almost  positive negative zero one two three <br>
-comparison:  same different like  big small<br>
-</p>
-
-<h5>LANGUAGE</h5>
-<p>
-join separate oppose friend enemy revenge betray
-ask answer order obey forbid allow call promise swear bless curse
-err forget teach learn
-</p>
-
-<h5>MORALS:</h5><p>
-just free caring holy loyal respect
-"accidents, agency, agreement, alternatives, apologies, arbitration,
- attempts, bias, blame, coercion, commensuration, conflict, constraints, conventions, 
-costs, crimes, culpability, culture, debt, deception, decisions, dependence, 
-deterrents, distractions, domination, duress, duty, escalation, excuses, 
-exoneration, failures, fairness, false beliefs, forgiveness, freedom, goals, goodness, identity, 
-ignorance, impairment, impartiality, innocence, intervention, justifications, 
-mental models,mercy, mistakes, moral rules, norms, paragons, passion, persons, 
-plans, preferences, prohibitions, punishment, recklessness, reparations, reputation,
- retaliation, shame, side-effects, strategies, temptation, tort, trust, universals, 
-utility, values, vengeance, virtues, and will"</p></details>
-
-<details><summary>Parsing language</summary>
-
-<p>Initially the language will be a lisp-like tree structure like (believe I (give A B +5 t+2)) means  "I believe that A will give +5 energy to B in the time now+2". Implementing proper natural language is a probable next step</p>
-</details>
-
-<details><summary>WM</summary>
-
-<p>todo</p>
-</details>
-
-<details><summary>episodic memory :</summary>
-
-<p>A (fixed) quantity of nodes are reserved for this (so over time thre may be overwriting of less used memories). Each memory node  links to agent, time, action of the event, etc.</p></details>
-
-<details><summary>semantic memory:</summary>
-
-<p>todo</p></details>
-
-<details><summary>Theory of mind: (words lke: believe, want, know)</summary>
-
-<p>bayesian inducton from events, speech  to the mind states of other agents , and from mind states to possible actions.
-during the training a unsupervised network trains (telepathy) using triples of belief, desire action for itself and other agents. 
-During testing this network is used to induce the mind states of other agents from evidence.
-On <a href="references.html#LimitToM">LimitToM</a>, <a href="references.html#LimitToM2">LimitToM2</a> indicates that no more than 2 levels of ToM may be optimal. (Battle of Wits scene from The Princess Bride)
-BDI (un)supervised network – given beliefs, desires and/or actions of other agents and self it gives a probable sate of mind/ action for the agent. It learns from training where the data is accessible (simulating “reading” events from a novel), and from thinking process (simulating other agent) that the agent may do.</p></details>
-
-<details><summary>Consistency</summary>
-
-<p>The network tries to have a single unified view of the world and solve inconsistencies. <a href="references.html#Inconsist">Inconsist</a></p></details>
-
-<details><summary>Probability</summary>
-
-<p>The networks give a probability for a outcome or inference, that may be projected on the magnitude nodes</p>
-</details>
-<details><summary>Logic</summary>
-
-<p><strong>logic conectives (and, or , not)</strong> -Probably will be bsaed on hard-coded/ learnt rules of reasoning:</p>
-
-<p>Ex: A AND B hit c => A HIT C    / B HIT C</p>
-
-<p>Negation - > TODO ?</p>
-</details>
-
-<details><summary>Chunk</summary>
-
-<p>chunk /unchunk items linked by a logic connector:</p>
-
-<p>Mary and Sue -> chunk1</p>
-
-<p>For example: A thinks that B thinks that C thinks of D – it is easier to chunk this as (avoiding repetition of concept and using a shallower embedding) <a href="references.html#LimDecision">LimDecision</a></p></details>
-
-<details><summary>Play, exploration , curiosity</summary>
-
-<p>Uncertain states activate a curiosity instinct to ask , experiment or play. It is useful if the agents explore. This may be implemented by RL-like exploration or even as a kind of playful / curiosity instinct  <a href="references.html#IntMot">IntMot</a></p>
-
-<p>[ImaginDLR] Imagination-Augmented Agents for Deep Reinforcement Learning</p></details>
-
-<details><summary>Multiagent Logic</summary>
-
-<p>Adopt the framework of multiagentLogic programming <a href="references.html#LogicProg1">LogicProg1</a>, <a href="references.html#LogicProg2">LogicProg2</a>, for negotriation and smooth it to use neutral netrorks. </p></details>
-
-<details><summary>TASK EXECUTION:</summary>
-
-<p>The network uses cycles of pondering to plan and make inferences about the social world: (  <a href="references.html#MAC">MAC</a> , <a href="references.html#WorkMem">WorkMem</a> )
-builds a neural-controlled neural state machine to parse an inage </p></details>
-
-<details><summary> Performance Monitoring</summary>
-
-<p>Contorlling performance in tasks to decide if need more attention <a href="references.html#PerfMon">PerfMon</a></p>
-</details>
-<details><summary> Shared Networks</summary>
-
-<p>Each agent has an individual episodic memory. There are a prediction network and a Task Network which are shared between agents, so as to speed learning:</p>
-
-<p><strong>Prediction network (world model)</strong>
-P (s1 | s) probability future / generative network (generate futures)
-P(s | O)    given observation, what is the most probable state
-U(s)    state value</p>
-
-<p><strong>Task network</strong> -  (Procedural memory)  -   Π(s)
-Actual actions and cognitive actions
-What to save to/retrieve from  memory, to (unbchunk)
-Who to model (theory of mind), 
-what to say
-Change beliefs
-Abstract concepts:   H2 + O2 -> H2O</p>
-</details>
-<details><summary>Groups/ coalitions</summary>
-
-<p>The internal representation of (other) agents may also be groups/coaliitons  with unique beliefs/ goals.</p>
-</details>
-
-<details><summary> Expertise</summary>
-
-<p><a href="references.html#Expertise">Expertise</a> -> Consolidation of laborious streams of thinking onto chunks of automatic processing. This process is used also in other contexts..</p>
-</details>
-<details><summary> magnitude</summary>
-
-<p>A list of node from low to high values. Trains a convolutional network to represent quantiiatives ( no, few,m some ,many all), intensity( big, small, very, almost), probability ( sure, often, sometimes, never). Bases its judgement on reference( most common) values. For example a value is “big” if bigger than the reference class.
-Linear neuron set that doubles as time, space, magnitude intensity indicators <a href="references.html#Magn1">Magn1</a>, <a href="references.html#Magn2">Magn2</a> . Counting <a href="references.html#NumLearn"> NumLearn</a>. Learn numerosity neurons from experience <a href="references.html#LearnQty">LearnQty</a>. Will have operators for approximate number system, adding, compare (more, less). Maybe a   module for precise computational operations (non-human)</p></details>
-
-<details><summary>Distilling rules</summary>
-
-<p><a href="references.html#Dora2">Dora2</a>- Predicate learning in neural systems: Discovering latent generative structure</p>
-
-<p>Given the “unconscious”/ subsymbolic learning the agent will store in the netxork, it is important if it can distill it into (approximate) rules, by means of ILP (Inductive Logic Programming) <a href="references.html#LogRuleInd">LogRuleInd</a>, <a href="references.html#LogRuleInd2">LogRuleInd2</a>, , both so the agent can consciously reason about the situations and for user’s insight on the (social) patterns discovered. It is a way to create social theories and tocompare with known patterns in real-wolrd (evolutionary) psychology.
-Related to that, one could use common-sense rules to simulate the agent’s mental states and their planning to achieve goals by manipulationg the other agent’s mental states <a href="references.html#LogicTom1">LogicTom1</a>, <a href="references.html#LogicTom3">LogicTom3</a>. The drawback of these works is that they use logical rules that are brittle and difficult to be comphreensive, and also do not  flexible communication, planning and reasoning . One of the main goals of the present project is to adapt this kind of work to use more flexible neural networks and make the system self-learn intuitive psychology (Theory of Mind) by self-play and crowdsourcing of social interactions.</p></details>
-
-<details><summary>Value</summary>
-
-<p>Nodes represent positive and negatve valuation, to push the agent towards positive outcomes.</p>
-</details>
-
-<details><summary> <b><font size='5%'>Social Planning</font></b></summary>
-
-<p>in <a href="references.html#SocialPlan">SocialPlan</a> a situation is described a initial state that is logically manipulated using a cognitive cycle (could also be used a planning/ logic theorem prover) to arrive at the solution:</p>
-
-<p><strong>A review of FPS</strong></p>
-
 <blockquote>
-  <p>Like many architectures, FPS contains a working memory and a long-term memory. The primary structure in the former is the problem, which includes a state description and a goal description. Another important structure is an intention or operator instance. A solution to problem P comprises an applied intention I, a subproblem for transforming P’s state into one that meets I’s conditions, a subproblem for transforming the state produced by applying I into one that satisfies P’s goals, and solutions to both subproblems. The base case is a trivial solution in which the state satisfies the goals.
-Long-term memory contains two forms of content: domain knowledge, which defines predicates, operators, and inference rules for a given problem domain, and strategic knowledge, which is domain independent. Domain content provides the material that planning uses to generate new subproblems, intentions, states, and goals; strategic content determines the details of the problem-solving process.</p>
-
-<p>As in Newell, Shaw, and Simon’s (1958) theory, problem solving in FPS involves transforming an initial state into one which satisfies the goal description by applying operators that manipulate state information. The architecture operates in cognitive cycles that involve five stages, each of which uses structures in long-term memory to update the contents of working memory. These include selecting a problem P on which to focus, selecting an operator instance I relevant to P, generating new subproblems based on I, checking for failure (e.g., loops), and checking for success (e.g., satisfied goals).
-For our work on social planning, we incorporated strategic knowledge that combines iterative-sampling search, backward chaining, and eager commitment methods. Our pilot studies suggested that goal-driven problem solving is more focused when tasks involve altering other agents’ mental states, although another approach like forward chaining might find the same solutions with additional search.(...)</p>
-
-<p>This reasoning process has more general applicability, but it is especially important in social settings. The inference stage can operate over domain rules, but SFPS also takes advantage of conceptual rules like</p>
+<em>  Much of human life´s meaning arguably depends on the enjoyment, for its own sake, of humor,love, game-playing, art,sex, dancing, social conversation, philosophy, literature, scientific discovery, sport, food and drink, friendship and parenting</em> 
 </blockquote>
+<a href='Roadmap.html#values'>Possible implementation</a>
+</p>
 
-<pre>
-not(belief(A, X) < - belief(A, not(X)) and
-not(belief(A, not(X))  <- belief(A, X) .
-</pre>
+<!-- p><div style="overflow: hidden;"><div class="quote"><em> 
 
-<p><strong>Example</strong> </p>
-
-<p><img src="fps1.png" alt="" title="" /></p>
-
-<blockquote>
-  <p>The crow doesn’t like the cheetah, that thinks he is his friend. The crow wants the lion to be injured </p>
-</blockquote>
-
-<p>The social planner runs and find a solution: </p>
-
-<p><img src="fps2.png" alt="" title="" /></p>
-
-<blockquote>
-  <p>The crow persuades the cheetah that the lion in the cave insulted the cheetah and is injured. The cheetah enters the cave and they fight</p>
-</blockquote>
-</details>
+</em></div></div><p></p></p -->
 
 
-<details><summary> Bonus -  Data's emotion chip:</summary>
 
-<ul>
-<li>happy - broaden , build</li>
-<li>sad - analytical thinking</li>
-<li>etc</li>
-</ul></details>
 
-<details><summary> Bonus -  Play / Humor / Art</summary>
 
-<p>Play as curiosity, experimentation – see above. To the agents art (ex, games, competition, storytelling) as a form of expression</p>
-
-<p>Humor- for example using a theory of humor as bening (rule) violation. (EX, the dog enters the church). Or as a means to contest dominance.</p></details>
-
-<details><summary> Bonus -  - Spirituality</summary>
-
-<p>immersion with universe</p>
-
-<p>belief in afterlife? spiritual beings?</p>
-
-<p>Hardcode belief in invisible big powerful benevolent agent.</p>
-</details>
 
 <h1>Release</h1>
 

@@ -1,0 +1,280 @@
+<head>
+<meta charset="UTF-8">
+<link rel='stylesheet' href='style1.css'/>
+<title>Social AI - Roadmap</title>
+</head>
+
+<p><body>
+<div class="container"></p>
+
+<h1>Making social AI</h1>
+
+<h1>Architecture</h1>
+
+<p><div style="overflow: hidden;"><div class="quote"><em> 
+Politics is like sausages, it is better not to know how they are made</em><br>
+Otto von Bismark
+</em></div></div><p></p></p>
+
+<p>Define a basic language and inplement childlike representation structures: </p>
+
+<p>We intend to imbue them with:</p>
+
+<blockquote>
+  <p><em>If LAS (a language learning model) were built like Winograd’s (1972) program to converse with another speaker instead of receiving sentences passively, it would have representational structures that conceivably could be useful in acquiring rules for interrogatives, conditionals, imperatives, and so on. And if it had a more childlike semantic representational system, which categorized the world into actors, actions, and recipients of actions, possessors and possessed, objects and locations, and so on, its linguistic abilities might even resemble those of young children</em> - <a href="References.html#LAS">Steven Pinker</a></p>
+</blockquote>
+
+<p>
+hard-coded utility/ drives from evolutionary psychology (how the mind works)
+    <br> TODO: evolve them later
+</p>
+<p>
+generative networks for past/future/capabilities/event/etc-generation
+past,future,capabilities networks trained at time-steps
+</p>
+<ul>
+<li> multi-step pondering ( vqa)
+   <font>user input</font>
+
+</li><li> supervised learning
+    <font color='red'>users code expected reaction to events</font>
+
+</li><li> reinforcement learning:
+   self-play (alphazero, deal or no-deal)
+   <br><font color='red'>users evaluate actions</font>
+
+</li><li> time processing 
+  ?
+
+</li><li> theory of mind (bayesian)
+   - trains with <br>
+   <font color='red'>user input</font>
+</ul>
+
+<h3>Concept nodes</h3>
+
+<p>Create nodes representing concepts: basic words, on node for each agent, numbers, events, etc</p>
+<p></p>
+<a name='InitLang'></a>
+<h4>INITIAL LANGUAGE:</h4>
+<table><th>agent names</th>
+<tr><td>basic verbs</td><td> move give speak </td></tr>
+<tr><td>logic</td><td> IF AND OR NOT YES TRUE because</td></tr>
+<tr><td>Theory of mind</td><td> want believe</td></tr>
+<tr><td>time</td><td> -ed will before after WHILE soon later _times</td></tr> 
+<tr><td>causality/action</td><td> if because try can should</td></tr>
+<tr><td></td><td>interrogatives, conditionals, imperatives</td></tr></table>
+
+<blockquote><font color='red'>
+  didn't work ? shoehorn skills until it works --- colaboration needed
+</font></blockquote>
+
+<h3>MORE LANGUAGE</h3>
+<h5>other basic words</h5>
+<p>
+pronouns: I you every/some/no-body<br>
+kin: father dagther mother son aunt uncle niece nephew cousin<br>
+wh - when what who where why which whom whither how how-much<br>
+probability: rarely seldom sometimes often always<br>
+quantitatives: no few some many ALL every almost  positive negative zero one two three <br>
+comparison:  same different like  big small<br>
+</p>
+
+<h5>LANGUAGE</h5>
+<p>
+join separate oppose friend enemy revenge betray
+ask answer order obey forbid allow call promise swear bless curse
+err forget teach learn
+</p>
+
+<h5>MORALS:</h5><p>
+just free caring holy loyal respect
+"accidents, agency, agreement, alternatives, apologies, arbitration,
+ attempts, bias, blame, coercion, commensuration, conflict, constraints, conventions, 
+costs, crimes, culpability, culture, debt, deception, decisions, dependence, 
+deterrents, distractions, domination, duress, duty, escalation, excuses, 
+exoneration, failures, fairness, false beliefs, forgiveness, freedom, goals, goodness, identity, 
+ignorance, impairment, impartiality, innocence, intervention, justifications, 
+mental models,mercy, mistakes, moral rules, norms, paragons, passion, persons, 
+plans, pReferences, prohibitions, punishment, recklessness, reparations, reputation,
+ retaliation, shame, side-effects, strategies, temptation, tort, trust, universals, 
+utility, values, vengeance, virtues, and will"</p><p></p>
+
+<h3>Parsing language</h3>
+
+<p>Initially the language will be a lisp-like tree structure like (believe I (give A B +5 t+2)) means  "I believe that A will give +5 energy to B in the time now+2". Implementing proper natural language is a probable next step</p>
+<p></p>
+
+<h3>WM</h3>
+
+<p>todo</p>
+<p></p>
+
+<h3>episodic memory :</h3>
+
+<p>A (fixed) quantity of nodes are reserved for this (so over time thre may be overwriting of less used memories). Each memory node  links to agent, time, action of the event, etc.</p><p></p>
+
+<h3>semantic memory:</h3>
+
+<p>todo</p><p></p>
+
+<h3>Theory of mind: (words lke: believe, want, know)</h3>
+
+<p>bayesian inducton from events, speech  to the mind states of other agents , and from mind states to possible actions.
+during the training a unsupervised network trains (telepathy) using triples of belief, desire action for itself and other agents. 
+During testing this network is used to induce the mind states of other agents from evidence.
+On <a href="References.html#LimitToM">LimitToM</a>, <a href="References.html#LimitToM2">LimitToM2</a> indicates that no more than 2 levels of ToM may be optimal. (Battle of Wits scene from The Princess Bride)
+BDI (un)supervised network – given beliefs, desires and/or actions of other agents and self it gives a probable sate of mind/ action for the agent. It learns from training where the data is accessible (simulating “reading” events from a novel), and from thinking process (simulating other agent) that the agent may do.</p><p></p>
+
+<h3>Consistency</h3>
+
+<p>The network tries to have a single unified view of the world and solve inconsistencies. <a href="References.html#Inconsist">Inconsist</a></p><p></p>
+
+<h3>Probability</h3>
+
+<p>The networks give a probability for a outcome or inference, that may be projected on the magnitude nodes</p>
+<p></p>
+<h3>Logic</h3>
+
+<p><strong>logic conectives (and, or , not)</strong> -Probably will be bsaed on hard-coded/ learnt rules of reasoning:</p>
+
+<p>Ex: A AND B hit c => A HIT C    / B HIT C</p>
+
+<p>Negation - > TODO ?</p>
+<p></p>
+
+<h3>Chunk</h3>
+
+<p>chunk /unchunk items linked by a logic connector:</p>
+
+<p>Mary and Sue -> chunk1</p>
+
+<p>For example: A thinks that B thinks that C thinks of D – it is easier to chunk this as (avoiding repetition of concept and using a shallower embedding) <a href="References.html#LimDecision">LimDecision</a></p><p></p>
+
+<h3>Play, exploration , curiosity</h3>
+
+<p>Uncertain states activate a curiosity instinct to ask , experiment or play. It is useful if the agents explore. This may be implemented by RL-like exploration or even as a kind of playful / curiosity instinct  <a href="References.html#IntMot">IntMot</a></p>
+
+<p>[ImaginDLR] Imagination-Augmented Agents for Deep Reinforcement Learning</p><p></p>
+
+<h3>Multiagent Logic</h3>
+
+<p>Adopt the framework of multiagentLogic programming <a href="References.html#LogicProg1">LogicProg1</a>, <a href="References.html#LogicProg2">LogicProg2</a>, for negotriation and smooth it to use neutral netrorks. </p><p></p>
+
+<h3>TASK EXECUTION:</h3>
+
+<p>The network uses cycles of pondering to plan and make inferences about the social world: (  <a href="References.html#MAC">MAC</a> , <a href="References.html#WorkMem">WorkMem</a> )
+builds a neural-controlled neural state machine to parse an inage </p><p></p>
+
+<h3> Performance Monitoring</h3>
+
+<p>Contorlling performance in tasks to decide if need more attention <a href="References.html#PerfMon">PerfMon</a></p>
+<p></p>
+<h3> Shared Networks</h3>
+
+<p>Each agent has an individual episodic memory. There are a prediction network and a Task Network which are shared between agents, so as to speed learning:</p>
+
+<a name='PredNet'></a>
+<p><strong>Prediction network (world model)</strong>
+P (s1 | s) probability future / generative network (generate futures)
+P(s | O)    given observation, what is the most probable state
+U(s)    state value</p>
+
+<p><strong>Task network</strong> -  (Procedural memory)  -   Π(s)
+Actual actions and cognitive actions
+What to save to/retrieve from  memory, to (unbchunk)
+Who to model (theory of mind), 
+what to say
+Change beliefs
+Abstract concepts:   H2 + O2 -> H2O</p>
+<p></p>
+<h3>Groups/ coalitions</h3>
+
+<p>The internal representation of (other) agents may also be groups/coaliitons  with unique beliefs/ goals.</p>
+<p></p>
+
+<h3> Expertise</h3>
+
+<p><a href="References.html#Expertise">Expertise</a> -> Consolidation of laborious streams of thinking onto chunks of automatic processing. This process is used also in other contexts..</p>
+<p></p>
+<h3> magnitude</h3>
+
+<p>A list of node from low to high values. Trains a convolutional network to represent quantiiatives ( no, few,m some ,many all), intensity( big, small, very, almost), probability ( sure, often, sometimes, never). Bases its judgement on reference( most common) values. For example a value is “big” if bigger than the reference class.
+Linear neuron set that doubles as time, space, magnitude intensity indicators <a href="References.html#Magn1">Magn1</a>, <a href="References.html#Magn2">Magn2</a> . Counting <a href="References.html#NumLearn"> NumLearn</a>. Learn numerosity neurons from experience <a href="References.html#LearnQty">LearnQty</a>. Will have operators for approximate number system, adding, compare (more, less). Maybe a   module for precise computational operations (non-human)</p><p></p>
+
+<h3>Distilling rules</h3>
+
+<p><a href="References.html#Dora2">Dora2</a>- Predicate learning in neural systems: Discovering latent generative structure</p>
+
+<p>Given the “unconscious”/ subsymbolic learning the agent will store in the netxork, it is important if it can distill it into (approximate) rules, by means of ILP (Inductive Logic Programming) <a href="References.html#LogRuleInd">LogRuleInd</a>, <a href="References.html#LogRuleInd2">LogRuleInd2</a>, , both so the agent can consciously reason about the situations and for user’s insight on the (social) patterns discovered. It is a way to create social theories and tocompare with known patterns in real-wolrd (evolutionary) psychology.
+Related to that, one could use common-sense rules to simulate the agent’s mental states and their planning to achieve goals by manipulationg the other agent’s mental states <a href="References.html#LogicTom1">LogicTom1</a>, <a href="References.html#LogicTom3">LogicTom3</a>. The drawback of these works is that they use logical rules that are brittle and difficult to be comphreensive, and also do not  flexible communication, planning and reasoning . One of the main goals of the present project is to adapt this kind of work to use more flexible neural networks and make the system self-learn intuitive psychology (Theory of Mind) by self-play and crowdsourcing of social interactions.</p><p></p>
+
+<h3>Value</h3>
+
+<p>Nodes represent positive and negatve valuation, to push the agent towards positive outcomes.</p>
+<p></p>
+
+<h3> <b><font size='5%'>Social Planning</font></b></h3>
+
+<p>in <a href="References.html#SocialPlan">SocialPlan</a> a situation is described a initial state that is logically manipulated using a cognitive cycle (could also be used a planning/ logic theorem prover) to arrive at the solution:</p>
+
+<a name='FPS'></a>
+<p><strong>A review of FPS</strong></p>
+
+<blockquote>
+  <p>Like many architectures, FPS contains a working memory and a long-term memory. The primary structure in the former is the problem, which includes a state description and a goal description. Another important structure is an intention or operator instance. A solution to problem P comprises an applied intention I, a subproblem for transforming P’s state into one that meets I’s conditions, a subproblem for transforming the state produced by applying I into one that satisfies P’s goals, and solutions to both subproblems. The base case is a trivial solution in which the state satisfies the goals.
+Long-term memory contains two forms of content: domain knowledge, which defines predicates, operators, and inference rules for a given problem domain, and strategic knowledge, which is domain independent. Domain content provides the material that planning uses to generate new subproblems, intentions, states, and goals; strategic content determines the details of the problem-solving process.</p>
+
+<p>As in Newell, Shaw, and Simon’s (1958) theory, problem solving in FPS involves transforming an initial state into one which satisfies the goal description by applying operators that manipulate state information. The architecture operates in cognitive cycles that involve five stages, each of which uses structures in long-term memory to update the contents of working memory. These include selecting a problem P on which to focus, selecting an operator instance I relevant to P, generating new subproblems based on I, checking for failure (e.g., loops), and checking for success (e.g., satisfied goals).
+For our work on social planning, we incorporated strategic knowledge that combines iterative-sampling search, backward chaining, and eager commitment methods. Our pilot studies suggested that goal-driven problem solving is more focused when tasks involve altering other agents’ mental states, although another approach like forward chaining might find the same solutions with additional search.(...)</p>
+
+<p>This reasoning process has more general applicability, but it is especially important in social settings. The inference stage can operate over domain rules, but SFPS also takes advantage of conceptual rules like</p>
+</blockquote>
+
+<pre>
+not(belief(A, X) < - belief(A, not(X)) and
+not(belief(A, not(X))  <- belief(A, X) .
+</pre>
+
+<p><strong>Example</strong> </p>
+
+<p><img src="fps1.png" alt="" title="" /></p>
+
+<blockquote>
+  <p>The crow doesn’t like the cheetah, that thinks he is his friend. The crow wants the lion to be injured </p>
+</blockquote>
+
+<p>The social planner runs and find a solution: </p>
+
+<p><img src="fps2.png" alt="" title="" /></p>
+
+<blockquote>
+  <p>The crow persuades the cheetah that the lion in the cave insulted the cheetah and is injured. The cheetah enters the cave and they fight</p>
+</blockquote>
+<p></p>
+
+<a name='values'/></a>
+<h3> Bonus -  Data's emotion chip:</h3>
+
+<ul>
+<li>happy - broaden , build</li>
+<li>sad - analytical thinking</li>
+<li>etc</li>
+</ul><p></p>
+
+<h3> Bonus -  Play / Humor / Art</h3>
+
+<p>Play as curiosity, experimentation – see above. To the agents art (ex, games, competition, storytelling) as a form of expression</p>
+
+<p>Humor- for example using a theory of humor as bening (rule) violation. (EX, the dog enters the church). Or as a means to contest dominance.</p><p></p>
+
+<h3> Bonus -  - Spirituality</h3>
+
+<p>immersion with universe</p>
+
+<p>belief in afterlife? spiritual beings?</p>
+
+<p>Hardcode belief in invisible big powerful benevolent agent.</p>
+<p></p>
+</div>
+</body></html>

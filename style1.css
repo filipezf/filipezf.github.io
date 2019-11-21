@@ -64,7 +64,8 @@ html {
 }
 
 body {
-  background: #fff;
+  /* background: #fff; */
+  background:#f6f6ef;
   font: 16px/1.4 Helvetica, Arial, sans-serif;
   color: #333;
 }
@@ -406,4 +407,18 @@ footer {
   display: none;
   overflow: hidden;
   background-color: #f1f1f1;
+} 
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
+.big-li{
+    margin: 10px 0
+}
+
+summary {
+  color: #086;
 } 
