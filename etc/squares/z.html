@@ -1,0 +1,42 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+<script type="text/javascript" >
+
+function run(){
+
+var log = document.getElementById('log');
+
+//var a =[2], d=[7];
+
+b = function (){
+	var i= 1;
+	var g = function(){ return h; }
+	var h = function(){ return ++i; }
+	return [g,h];
+};
+
+c = b();
+h2 = c[0]()();
+//c=h2();
+
+
+log.innerHTML = h2 ;
+}
+
+
+</script>
+
+</head>
+
+<body onload="run()">
+
+
+
+<br>
+
+<div id="log">j</div>
+
+</body>
+</html>

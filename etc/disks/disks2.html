@@ -1,0 +1,382 @@
+<html>
+   <head>
+      <title>Box2dWeb Demo</title>
+   </head>
+   <body>
+      <canvas id="canvas" width="600" height="300" style="background-color:#333333;" ></canvas>
+	<p>
+        <input type="button" onclick="init();" value="START" />
+        <!-- input type="text" width="10" id='url' value="ws:/52.70.183.24:8080" / -->
+        <input type="text" width="10" id='url' value="ws://192.168.1.106:8080" />
+    </p>
+   </body>
+   <b style="text-align:center"> 
+        <span id="r_goal" style="color:red; font-size: 150%;"> 0</span> x
+        <span id="b_goal" style="color:blue; font-size: 150%;"> 0</span>
+    </b>
+   <script type="text/javascript" src="Box2dWeb-2.1a.2.js"></script>
+
+   <script type="text/javascript">
+
+      var b0;
+	 var balls =[];
+		var scale =30;
+		var dt = 30
+	var ctx;
+    var int;
+    var id = Math.random();
+    var color = 'red';
+    var time = Math.random();
+    var b_goal = 0, r_goal = 0;
+
+    var mouseX, mouseY, mousePVec, isMouseDown, selectedBody, mouseJoint;
+         //var canvasPosition = getElementPosition(document.getElementById("canvas"));
+     var world;
+
+canvas_width = 600
+canvas_height = 300;
+
+// in meters
+screen_width  = w = canvas_width/scale;
+screen_height = h = canvas_height/scale;
+//	var id = Math.random();
+
+var   b2Vec2 = Box2D.Common.Math.b2Vec2
+            ,  b2AABB = Box2D.Collision.b2AABB
+         	,	b2BodyDef = Box2D.Dynamics.b2BodyDef
+         	,	b2Body = Box2D.Dynamics.b2Body
+         	,	b2FixtureDef = Box2D.Dynamics.b2FixtureDef
+         	,	b2Fixture = Box2D.Dynamics.b2Fixture
+         	,	b2World = Box2D.Dynamics.b2World
+         	,	b2MassData = Box2D.Collision.Shapes.b2MassData
+         	,	b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape
+         	,	b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
+         	,	b2DebugDraw = Box2D.Dynamics.b2DebugDraw
+            ,  b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef
+            ;
+
+
+    
+console.log('init');
+
+
+function $(id){ return document.getElementById(id); }
+function init(){
+    b_goal = 0; r_goal = 0;
+    $('r_goal').innerHTML =  r_goal;
+    $('b_goal').innerHTML =  b_goal;
+    socket = new WebSocket($('url').value);
+    socket.onopen = function(){ sendData();}
+    
+    socket.addEventListener('message', function (event) {
+        
+        var o = JSON.parse(event.data);
+ 
+        console.log( o.id, o.time);
+        if (o.id == id) return;
+        
+        color = (o.id < id) ? 'red' : 'blue';
+        //console.log(time, o.time);
+        if (o.time < time) return;
+        time = o.time;
+
+        $('r_goal').innerHTML =  r_goal = o.r_goal;
+        $('b_goal').innerHTML =  b_goal = o.b_goal;
+        setDataBall('white', o.white);
+       if (color == 'red') setDataBall('blue', o.blue);
+       if (color == 'blue') setDataBall('red', o.red); 
+       
+    });
+
+     world = new b2World(
+           new b2Vec2(0, 0)    //gravity
+        ,  true                 //allow sleep
+     );
+     
+     var fixDef = new b2FixtureDef;
+     fixDef.density = 1.0;
+     fixDef.friction = 0.05;
+     fixDef.restitution = 0.75;
+     
+     var bodyDef = new b2BodyDef;
+     
+     //create ground
+     bodyDef.type = b2Body.b2_staticBody;
+     fixDef.shape = new b2PolygonShape;
+     fixDef.shape.SetAsBox(20, 2);
+     bodyDef.position.Set(10, 300 / 30 + 1.8);
+     world.CreateBody(bodyDef).CreateFixture(fixDef);
+     bodyDef.position.Set(10, -1.8);
+     world.CreateBody(bodyDef).CreateFixture(fixDef);
+     fixDef.shape.SetAsBox(2, 14);
+     bodyDef.position.Set(-1.8, 13);
+     world.CreateBody(bodyDef).CreateFixture(fixDef);
+     bodyDef.position.Set(21.8, 13);
+     world.CreateBody(bodyDef).CreateFixture(fixDef);
+     
+     
+             //create some objects
+     bodyDef.type = b2Body.b2_dynamicBody;
+// P1
+    fixDef.shape = new b2CircleShape(1);
+    bodyDef.position.x = screen_width*0.25;
+    bodyDef.position.y = Math.random() * 10;
+    (b0 = world.CreateBody(bodyDef)).CreateFixture(fixDef);
+	balls['red'] = b0;
+	b0.width=b0.height =2;
+	b0.color= 'red';
+// P2
+    fixDef.shape = new b2CircleShape(1);
+    bodyDef.position.x = screen_width*0.75;
+    bodyDef.position.y = Math.random() * 10;
+    (b0 = world.CreateBody(bodyDef)).CreateFixture(fixDef);
+	b0.width = b0.height =2;
+    balls['blue'] = b0;
+	b0.color= 'blue';
+//ball
+
+    fixDef.shape = new b2CircleShape(0.3);
+    bodyDef.position.x = Math.random() * 10;
+    bodyDef.position.y = Math.random() * 10;
+    (b0=world.CreateBody(bodyDef)).CreateFixture(fixDef);
+	b0.width=b0.height =0.6;
+	balls['white'] = b0;
+	b0.color= 'white';
+
+
+     
+     //setup debug draw
+     var debugDraw = new b2DebugDraw();
+		debugDraw.SetSprite(ctx = document.getElementById("canvas").getContext("2d"));
+		debugDraw.SetDrawScale(scale);
+		debugDraw.SetFillAlpha(0.5);
+		debugDraw.SetLineThickness(1.0);
+		debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+		//world.SetDebugDraw(debugDraw);
+     
+    if (int) {
+        window.clearInterval(int);
+    }else{
+        console.log("mouse events");
+	    document.addEventListener("mousemove", handleMouseMove, true);
+        document.addEventListener("mousedown", function(e) {
+            isMouseDown = true;
+            handleMouseMove(e);
+           // document.addEventListener("mousemove", handleMouseMove, true);
+        }, true);
+         
+        document.addEventListener("mouseup", function() {
+           // document.removeEventListener("mousemove", handleMouseMove, true);
+           // isMouseDown = false;
+            mouseX = undefined;
+            mouseY = undefined;
+        }, true);
+         
+	    if ('ontouchstart' in window) {
+			    /* browser with Touch Events support */
+
+		    document.addEventListener( 'touchmove', function(evt){
+			    evt.preventDefault();
+			    handleMouseMove({clientX: evt.touches[0].clientX, clientY :evt.touches[0].clientY });
+		    });
+
+		}
+	}
+    
+    int = window.setInterval(update, 1000 / dt);
+}         
+         //mouse
+         
+         
+
+
+function handleMouseMove(e) {
+	var oldX = mouseX, oldY = mouseY;
+    var rect = canvas.getBoundingClientRect();
+    mouseX = (e.clientX - rect.left) / scale;
+    mouseY = (e.clientY -  rect.top) / scale;
+    if (mouseX == oldX && mouseY==oldY)
+
+	var v = mouseX + mouseY + oldX + oldY;
+	if (Number.isNaN(v)) return;
+	//console.log(v, mouseX, mouseY);
+	
+	if (mouseX<0 || mouseY <0 || mouseX > screen_width  || mouseY > screen_height) return;  
+	if ( color == 'red' && mouseX > screen_width /2) return;
+	if ( color == 'blue' && mouseX < screen_width /2) return;
+
+    sendData( );
+
+    var k = 0.2;
+    balls[color].SetPosition(new b2Vec2(mouseX, mouseY)); 
+    balls[color].SetLinearVelocity(new b2Vec2((mouseX - oldX)*k, (mouseY-oldY)*k ));
+
+ }
+
+function getDataBall(c){
+    var pos = balls[c].GetPosition();
+    var vel = balls[c].GetLinearVelocity();
+    return{   x: pos.x, y:pos.y, vx:vel.x, vy: vel.y }
+}
+function setDataBall(c, o){
+    balls[c].SetPosition(new b2Vec2(o.x, o.y)); 
+    balls[c].SetLinearVelocity(new b2Vec2(o.vx, o.vy));
+}
+function sendData(){
+    var o = {}; 
+    o.group = 'disks';			
+    o.id = id;
+    time += Math.random();
+    o.time = time;
+    o.red = getDataBall('red');
+    o.blue = getDataBall('blue');
+    o.white = getDataBall('white');
+    o.r_goal = r_goal;
+    o.b_goal = b_goal;
+    //console.log(o);
+    socket.send( JSON.stringify( o) );  		    
+}
+ 
+ function getBodyAtMouse() {
+    mousePVec = new b2Vec2(mouseX, mouseY);
+    var aabb = new b2AABB();
+    aabb.lowerBound.Set(mouseX - 0.001, mouseY - 0.001);
+    aabb.upperBound.Set(mouseX + 0.001, mouseY + 0.001);
+    
+    // Query the world for overlapping shapes.
+
+    selectedBody = null;
+    world.QueryAABB(getBodyCB, aabb);
+    return selectedBody;
+ }
+
+ function getBodyCB(fixture) {
+    if(fixture.GetBody().GetType() != b2Body.b2_staticBody) {
+       if(fixture.GetShape().TestPoint(fixture.GetBody().GetTransform(), mousePVec)) {
+          selectedBody = fixture.GetBody();
+          return false;
+       }
+    }
+    return true;
+ }
+ 
+ //update
+
+ function update() {
+    step();
+	redraw_world();
+ };
+
+
+function draw(b)
+{
+//draw_body(this.body, this.game.ctx);
+
+
+	var c = get_offset(b.GetPosition());
+	//if (b ==b1) console.log(b.GetPosition());
+	var sx = c.x * scale;
+	var sy = c.y * scale;
+
+	var width = b.width * scale;
+	var height = b.height * scale;
+
+	ctx.fillStyle = b.color;
+	fillEllipse(ctx,  sx-width / 2, canvas_height - sy - height / 2, width, height );
+
+}
+
+function get_offset(vector)
+{
+	return new b2Vec2(vector.x - 0, Math.abs(vector.y - this.screen_height));
+}
+function redraw_world()
+{
+	//1. clear the canvas first - not doing this will cause tearing at world ends
+	ctx.fillStyle = "#440000";	
+	ctx.fillRect(0 , 0 , canvas_width/2 , canvas_height);
+	ctx.fillStyle = "#000044";	
+	ctx.fillRect(canvas_width/2 , 0 , canvas_width/2 , canvas_height);
+	
+    //goals:
+    ctx.fillStyle = "green";	
+    ctx.fillRect(0, canvas_height/4 , 15 , canvas_height/2);
+    ctx.fillRect(canvas_width-15, canvas_height/4 , 15 , canvas_height/2);
+
+
+	//dimensions in metres
+	var w = screen_width;
+	var h = screen_height;
+
+	//Draw each object one by one , the tiles , the cars , the other objects lying here and there
+	for(var i in balls){
+		draw(balls[i]);
+	}
+}
+
+
+function step(){
+
+	var pr = balls['red'].GetPosition();
+	balls['red'] .SetPosition(new b2Vec2(Math.min(pr.x, screen_width /2),pr.y));
+	var pb = balls['blue'].GetPosition();
+	balls['blue'].SetPosition(new b2Vec2(Math.max(pb.x, screen_width /2),pb.y));
+  
+  balls['red'].SetAwake(true);
+ balls['blue'].SetAwake(true);
+ balls['white'].SetAwake(true);
+
+    world.Step(50, 10, 10);
+
+    var p = balls['white'] .GetPosition();
+    var v = balls['white'] .GetLinearVelocity();
+
+      //world.ClearForces();
+
+    // x:20 y:10
+    if ( Math.abs(p.y- 10/2) < 2  && ( p.x< 1|| p.x > 19) ){
+        if ( p.x <  1 ) b_goal++;
+        if ( p.x > 19 ) r_goal++;
+        $('r_goal').innerHTML = '' + r_goal;
+        $('b_goal').innerHTML = '' + b_goal;
+ 
+        zero = new b2Vec2(0,0);
+        balls['red'].SetLinearVelocity(zero); 
+        balls['blue'].SetLinearVelocity(zero); 
+        balls['white'].SetLinearVelocity(zero); 
+
+        balls['red'].SetPosition(new b2Vec2(5,5)); 
+        balls['white'].SetPosition(new b2Vec2(10,5)); 
+        balls['blue'].SetPosition(new b2Vec2(15,5)); 
+
+    }
+}
+
+function fillEllipseByCenter(ctx, cx, cy, w, h) {
+  fillEllipse(ctx, cx - w/2.0, cy - h/2.0, w, h);
+}
+
+function fillEllipse(ctx, x, y, w, h) {
+  var kappa = .5522848,
+      ox = (w / 2) * kappa, // control point offset horizontal
+      oy = (h / 2) * kappa, // control point offset vertical
+      xe = x + w,           // x-end
+      ye = y + h,           // y-end
+      xm = x + w / 2,       // x-middle
+      ym = y + h / 2;       // y-middle
+
+  ctx.beginPath();
+  ctx.moveTo(x, ym);
+  ctx.bezierCurveTo(x, ym - oy, xm - ox, y, xm, y);
+  ctx.bezierCurveTo(xm + ox, y, xe, ym - oy, xe, ym);
+  ctx.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye);
+  ctx.bezierCurveTo(xm - ox, ye, x, ym + oy, x, ym);
+  //ctx.closePath(); // not used correctly, see comments (use to close off open path)
+  ctx.fill();
+
+}
+
+init();
+   
+</script>
+</html>

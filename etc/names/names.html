@@ -1,0 +1,100 @@
+<html>
+<head>
+<title>Blackboard</title>
+<script src="names10001.js"></script> 
+<script language="JavaScript">
+function faster(){
+    if (interval > 50){
+        interval = Math.floor( interval * 0.7);
+       
+        clearTimeout( timer ); 
+        timer = setInterval( update, interval  );
+    }
+}
+function slower(){
+        interval = Math.floor( interval * 1.3);
+        clearTimeout( timer ); 
+        timer = setInterval( update, interval );
+}
+function stop(){
+    clearTimeout( timer );      
+}
+function start(){
+	clearTimeout( timer );  
+    timer = setInterval( update, interval = 1000 );
+}
+
+</script>
+</head>
+
+<body>
+<h1>Billions of friends</h1>
+The world has billions of people. If we show 15 x 50 names at a rate of 10x/second,  we get 7500 people/second or 648 Millon/day.
+<p>
+In 10 days you can friend all the people in the world.
+</p>
+<p>
+<a href='javascript:start();'>start</a>&nbsp;&nbsp;
+<a href='javascript:stop();'>stop</a>&nbsp;&nbsp;
+<a href='javascript:faster();'>faster</a>&nbsp;&nbsp;
+<a href='javascript:slower();'>slower</a>&nbsp;&nbsp;
+</p>
+<div id='div'></div>
+<script language="JavaScript"> 
+
+
+var body = document.getElementById("div");
+
+var interval = 100; 
+
+var div_table = [];
+var timer;
+
+var WIDTH = 1200;
+var HEIGHT = 800;
+var w_size = 80;
+var h_size = 15;
+for (var x=0; x< WIDTH/w_size; x++){
+    div_table[x] = [];
+    for (var y=0; y< HEIGHT/h_size; y++){
+
+        var div = document.createElement('div'); 
+        var px = x * w_size;
+        var py = y * h_size + 170;
+        div.style.cssText = "font-size:11px; position: absolute;  left: "+px+"px; top: "+py+"px;";
+        div.style0 = div.style.cssText; 
+       
+        body.appendChild(div);
+
+        div_table[x][y] = div;
+    }
+}
+
+function update(){
+
+    for (var x=0; x< WIDTH/w_size; x++){
+      for (var y=0; y< HEIGHT/h_size; y++){
+
+        var idx = Math.floor(Math.random() * names.length);
+
+        var text = names[idx];
+        var href = idx + '.html';
+        var div = div_table[x][y] ;
+        div.innerHTML = "<a id='" + idx+"' href='" + href+ "'>" + text +"</a>" ;
+
+
+     }
+    }
+     
+} 
+timer = setInterval( update, interval);
+ 
+
+
+</script>
+
+
+</body>
+</html>
+
+

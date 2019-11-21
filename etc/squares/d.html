@@ -1,0 +1,57 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-4">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel='stylesheet' href='../../style1.css'/>
+<script type="text/javascript" src="jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="d1.js"></script>
+<script type="text/javascript" src="words.js"></script>
+
+</head>
+
+<body onload="init()">
+<div class="container">
+<h1>Original Squares Project</h1>
+<img src='../../logo.png'>This is the original project (which explains the logo and the name Squares Project).
+<br>
+You control the pink square and there is also a child blue square. 
+<br>
+The energy of the squares is shown inside them. IF they reach 0 it is shown in red to indicate low energy.
+Energy can be gained by eating the gray squares that also indicate theis amount of energy (that can be zero). The maximum is 20.
+<br>
+You have a field of vision of 7x7 centered on you (or you can use the checkbox 'Show everything'). You can move in the four directions using the buttons or the keyboard arrows.
+You can also speak, give or remove energy (only if near the target agent).
+ 
+<br>
+<br>
+The child agent would be controlled by an AI. It is implemented as an agent that moves, gives positive and negative energy and speaks, all randomly. The 'speech' and actions of the child agent are showm in the coral box.
+<br>
+The intention was to have a large field with human and AI-controlled agents, where users would teach the agents to behave socially. They would receive positive reinforcement when gaining energy ( and possibly other future options). 
+<p></p>
+<!-- div id="afilho"  style="background-color:#dddddd">.</div -->
+<div id="afilho"   style="width:230px; border: 2px coral solid;"> . </div>
+
+<form onsubmit="return false;">
+	<input type="submit" value="Speak"  >
+	<input type="text" id="valor" value="..."/><br>
+	
+	<input type="submit" value="+" onclick="givep(1)" > 
+	<input type="submit" value="-" onclick="givep(-1)" >
+	<input type="text" value="1" id="de"/><br>
+	<input type="checkbox" id="chkExibe" value="off" onclick="draw()">Show everything
+	<br>
+	<input type="submit" value=" < " onclick="movebt('left')" >
+	<input type="submit" value=" ^ " onclick="movebt('up')" >
+	<input type="submit" value=" v " onclick="movebt('down')" >
+	<input type="submit" value=" > " onclick="movebt('right')" >
+<br>	
+</form>
+<br>
+
+<div id="container" >
+    	 <canvas id="canvas"/>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<!-- password fb: 8lockworld-->
+<html>
+
+<head>
+	<title>BlocksWorld - Physijs</title>
+	
+	<link rel="stylesheet" type="text/css" href="examples/css/styles.css" />
+	
+	<script type="text/javascript" src="examples/js/three.min.js"></script>
+	<script type="text/javascript" src="examples/js/stats.js"></script>
+	<script type="text/javascript" src="examples/js/tween.js"></script>
+	<script type="text/javascript" src="physi.js"></script>
+
+	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+	
+	<script type="text/javascript">
+	
+	'use strict';
+	
+	Physijs.scripts.worker = 'physijs_worker.js';
+	Physijs.scripts.ammo = 'examples/js/ammo.js';
+
+	var t = 0, sync = true;
+	var colors = [[255,0,0], [0,255,0], [0,0,255], [128,128,0], [0,0,0], [255,255,255]  ];
+	
+	var id= Math.random();
+	var renderer, render_stats, physics_stats, scene, light, ground, ground_material, camera;
+	var initEventHandling;
+
+	var	table, blocks = [], table_material, intersect_plane,
+		selected_block = null, mouse_position = new THREE.Vector3, block_offset = new THREE.Vector3, _i, _v3 = new THREE.Vector3;
+	var impulse =0;
+	var NUM_BLOCKS = 30;
+
+	var texture = [];
+	var fnames = ['plywood', 'A', 'B', 'C'];
+	for (var i=0; i<4;i++){
+		var file = fnames[i];
+		texture[file] = THREE.ImageUtils.loadTexture(  'examples/images/' + file +'.jpg' );
+	}	
+
+	function inc(x){ return Math.floor(Math.random()*10 + x) } 	
+	function syncStatus(){
+		setTimeout ( syncStatus, Math.random() * 1000);				
+		if (blocks.length < NUM_BLOCKS){
+			blocks.push(undefined);
+			createBlock( true);
+		}
+		removeBlock( true);
+		createBlock( true);
+	}
+
+
+	function initScene () {
+		TWEEN.start();
+		
+		renderer = new THREE.WebGLRenderer({ antialias: true });
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		renderer.shadowMapEnabled = true;
+		renderer.shadowMapSoft = true;
+		document.getElementById( 'viewport' ).appendChild( renderer.domElement );
+		
+		render_stats = new Stats();
+		render_stats.domElement.style.position = 'absolute';
+		render_stats.domElement.style.top = '100px';
+		render_stats.domElement.style.zIndex = 100;
+		document.getElementById( 'viewport' ).appendChild( render_stats.domElement );
+		
+		physics_stats = new Stats();
+		physics_stats.domElement.style.position = 'absolute';
+		physics_stats.domElement.style.top = '150px';
+		physics_stats.domElement.style.zIndex = 100;
+		document.getElementById( 'viewport' ).appendChild( physics_stats.domElement );
+		
+
+        var tips = document.createElement('div');
+        tips.innerHTML =  "You can drag the letter blocks, that disappear after some time, while new ones fall from above.<br>";
+        tips.innerHTML += "While dragging a block, press 'k' to raise it and 'm' to lower it. Then you can stack them. ";
+		tips.style.position = 'absolute';
+        tips.style.color = 'white';
+		tips.style.top = '50px';
+		tips.style.zIndex = 100;
+		document.getElementById( 'viewport' ).appendChild( tips );
+		
+
+
+		scene = new Physijs.Scene({ fixedTimeStep: 1 / 120 });
+		scene.setGravity(new THREE.Vector3( 0, -30, 0 ));
+		scene.addEventListener(
+			'update',
+			function() {
+
+				if ( selected_block !== null ) {
+					//var _vY = new THREE.Vector3( 0, impulse/ , 0 );
+					_v3.copy( mouse_position ).add( block_offset ).sub( selected_block.position ).multiplyScalar( 5 );
+					_v3.y = impulse * 2.5;
+					selected_block.setLinearVelocity( _v3 );
+					selected_block.moved = true;
+
+					//if (impulse !=0){
+						//_v3.set( 0, impulse, 0 );
+					//	selected_block.position.setY( impulse );
+					//}
+					
+					// Reactivate all of the blocks
+					_v3.set( 0, 0, 0.001 );
+					for ( _i = 0; _i < blocks.length; _i++ ) {
+						if ( ! blocks[_i]) continue;
+						blocks[_i].applyCentralImpulse( _v3 );
+						
+					}
+				}
+				impulse = 0;
+				
+
+				scene.simulate( undefined, 2 );
+				physics_stats.update();
+				
+				
+			}
+		);
+		
+		camera = new THREE.PerspectiveCamera(
+			35,
+			window.innerWidth / window.innerHeight,
+			1,
+			1000
+		);
+		
+		camera.position.set( 50, 40, -50 );
+		camera.lookAt( scene.position );
+		scene.add( camera );
+		
+		// Light
+		light = new THREE.DirectionalLight( 0xFFFFFF );
+		light.position.set( 20, 40, -15 );
+		light.target.position.copy( scene.position );
+		light.castShadow = true;
+		light.shadowCameraLeft = -60;
+		light.shadowCameraTop = -60;
+		light.shadowCameraRight = 60;
+		light.shadowCameraBottom = 60;
+		light.shadowCameraNear = 20;
+		light.shadowCameraFar = 200;
+		light.shadowBias = -.0001
+		light.shadowMapWidth = light.shadowMapHeight = 2048;
+		light.shadowDarkness = .7;
+		scene.add( light );
+		
+		// Materials
+
+		
+
+		ground_material = Physijs.createMaterial(
+			new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture( 'examples/images/rocks.jpg' ) }),
+			.8, // high friction
+			.4 // low restitution
+		);
+		ground_material.map.wrapS = ground_material.map.wrapT = THREE.RepeatWrapping;
+		ground_material.map.repeat.set( 2.5, 2.5 );
+		
+		// Ground
+		ground = new Physijs.BoxMesh(
+			new THREE.CubeGeometry(50, 1, 50),
+			//new THREE.PlaneGeometry(50, 50),
+			ground_material,
+			0 // mass
+		);
+		ground.receiveShadow = true;
+		scene.add( ground );
+		
+
+		intersect_plane = new THREE.Mesh(
+			new THREE.PlaneGeometry( 150, 150 ),
+			new THREE.MeshBasicMaterial({ opacity: 0, transparent: true 
+				,  depthWrite: false, depthTest: false
+				})
+		);
+		intersect_plane.rotation.x = Math.PI / -2;
+		scene.add( intersect_plane );
+
+		initEventHandling();
+		
+		
+		document.addEventListener('keypress', function( ev ) {
+					switch ( ev.code ) {
+						case "KeyK": impulse+=3;	break;
+						case 'KeyM': impulse-=3;	break;	
+						//sync = false;
+						//sync = true
+						//vanish = false
+						//vanish = true					
+					}
+				});
+
+		requestAnimationFrame( render );
+		scene.simulate();
+
+		/*for (var i=0; i< NUM_BLOCKS/3; i++){
+			blocks.push(undefined);
+			createBlock( true);
+		}*/
+		
+		syncStatus();
+	}
+	
+	function render() {
+
+		requestAnimationFrame( render );
+		renderer.render( scene, camera );
+		render_stats.update();
+	}
+
+	function getMaterial( file){
+		return Physijs.createMaterial(
+			new THREE.MeshLambertMaterial({ 
+				map: texture[file], 
+				//map: THREE.ImageUtils.loadTexture(  'examples/images/' + file +'.jpg' ),
+				ambient: 0xAAAAAA, 
+					//opacity: 0, 
+					//overdraw: true,
+					//transparent: true 
+					}),
+				.4, // medium friction
+				.4 // medium restitution
+			);
+	}
+	
+	function error( p ){
+		if ( (!p.x  && p.x !=0 )|| Number.isNaN( p.x )) {p.x =0; return true; }
+		if ( (!p.y  && p.y !=0 ) || Number.isNaN( p.y )) {p.y =0; return true;}
+		if ((!p.z  && p.z !=0 ) || Number.isNaN( p.z )) {p.z =0; return true; }
+	}
+
+	function xyz( o ){ return o.x +' ' +o.y+' ' +o.z}
+	function getBlock(block, i){
+		var pos = block.position,		
+			rot= block.rotation,
+			vel= block.getLinearVelocity(),
+			ang= block.getAngularVelocity() ;
+	
+		var err= false;
+		if (error(pos)){ err= true; console.log("bad block " + i + '  pos ' + xyz(pos) ); }
+		if (error(rot)){ err= true; console.log("bad block " + i + '  rot ' +xyz(rot) ); }
+		if (error(vel)){ err= true; console.log("bad block " + i + '  vel ' + xyz(vel) ); }
+		if (error(ang)){ err= true; console.log("bad block " + i + '  ang ' + xyz(ang) ); }
+	
+		if (err) {		
+				//scene.remove( block );				//invalid position - reset block
+				blocks[i].toDelete = true ;	
+			return false;	
+		}
+		
+		return {pos:{x:pos.x, y:pos.y, z:pos.z},
+				ang:{x:ang.x, y:ang.y, z:ang.z}, 
+				vel:{x:vel.x, y:vel.y, z:vel.z}, 
+				rot:{x:rot.x, y:rot.y, z:rot.z} };
+	}
+	function setBlock(data, block, i){
+		//if (Math.random() < 0.5) return;
+		block.position.set(data.pos.x, data.pos.y, data.pos.z );	
+		block.rotation.set(data.rot.x, data.rot.y, data.rot.z );	
+		block.setLinearVelocity( new THREE.Vector3( data.vel.x, data.vel.y, data.vel.z )) ;
+		block.setAngularVelocity( new THREE.Vector3( data.ang.x, data.ang.y, data.ang.z  ));
+		block.__dirtyPosition = true;
+		block.__dirtyRotation = true;
+		var vel= block.getLinearVelocity();
+		//console.log('setBlock ' + i+' '+ data.vel.x +' '+ vel.x); 
+	}
+	function createBlock( ){
+		
+		var i;
+		for ( i=0; i< blocks.length; i++)
+			if (! blocks[i]) break;	
+		//if (i >= NUM_BLOCKS) return;	// full
+
+		
+		var data = {pos:{
+			x  : Math.random() * 30 - 15,
+			y  : Math.random() * 40  + 8,
+			z  : Math.random() * 30 - 15 },
+			rot:{
+			x : Math.random() * Math.PI,
+			y : Math.random() * Math.PI,
+			z : Math.random() * Math.PI }
+		};
+		createBlocki(i, data);
+		//addRef.set( { i: i, data : data, id : id} ); 		
+	}	
+	function createBlocki(i , data){
+		//console.log("createBlock_i" + i);
+
+		var box_geometry = new THREE.CubeGeometry( 3, 3, 3 );					
+			
+		
+		var block_material_letter = [];
+		for (var z=0; z<3;z++)
+			block_material_letter[z]=  getMaterial( ['A','B','C'][z]  );
+
+		var block_material =  getMaterial( 'plywood' );
+		
+		
+		var materials = [];
+		for (var j=0; j<6; j++) 
+			materials.push( (j<3)? 
+				block_material_letter[Math.floor(Math.random()*3)] 
+				: block_material);
+
+		var shape = new Physijs.BoxMesh(
+					box_geometry,
+					new THREE.MeshFaceMaterial( materials ) 
+				);
+			
+		shape.block_material = block_material;
+		shape.block_material_letter = block_material_letter;
+		//var c = colors[i];
+		//shape.material.color.setRGB( c[0], c[1], c[2] );
+
+		shape.castShadow = true;
+		shape.receiveShadow = true;
+
+		shape.position.set(data.pos.x, data.pos.y, data.pos.z);		
+		shape.rotation.set(data.rot.x, data.rot.y, data.rot.z);
+		shape.__dirtyPosition = true;
+		shape.__dirtyRotation = true;
+		
+		//if (blocks[i]) scene.remove( blocks[i] );
+		blocks[i] = shape ;
+		scene.add( shape );
+	}
+
+
+	function removeBlock(){
+		var i;
+		//setTimeout(removeBlock, Math.random()* TURNOVER + MIN_TIME );	
+		removeBlocki( i = Math.floor( Math.random() * blocks.length) );
+	//	removeRef.set( { i: i, id: id} ); 		
+	}
+	function removeBlocki( i ){	
+		//console.log('removeBlock_i' + i); 
+		var block = blocks[i];	
+		if (! block) return;
+
+		//scene.remove( block);	
+		//blocks[i] = undefined;	
+
+		block.block_material.transparent =  true;
+		new TWEEN.Tween(block.block_material).to({opacity: 0}, 3000).start();
+		
+		for (var j=0; j<block.block_material_letter.length;j++){
+			block.block_material_letter[j].transparent = true;
+			new TWEEN.Tween(block.block_material_letter[j]).to({opacity: 0}, 3000).start();
+			
+		}
+
+		blocks[i] = undefined;		
+		setTimeout( function(){ scene.remove( block); },  3000 );	
+			
+	}
+
+
+	initEventHandling = (function() {
+		var _vector = new THREE.Vector3,
+			projector = new THREE.Projector(),
+			handleMouseDown, handleMouseMove, handleMouseUp;
+		
+		handleMouseDown = function( evt ) {
+			var ray, intersections;
+			
+			_vector.set(
+				( evt.clientX / window.innerWidth ) * 2 - 1,
+				-( evt.clientY / window.innerHeight ) * 2 + 1,
+				1
+			);
+
+			projector.unprojectVector( _vector, camera );
+			
+			ray = new THREE.Raycaster( camera.position, _vector.sub( camera.position ).normalize() );
+			intersections = ray.intersectObjects( blocks );
+
+			if ( intersections.length > 0 ) {
+				selected_block = intersections[0].object;
+				
+				_vector.set( 0, 0, 0 );
+				selected_block.setAngularFactor( _vector );
+				selected_block.setAngularVelocity( _vector );
+				selected_block.setLinearFactor( _vector );
+				selected_block.setLinearVelocity( _vector );
+
+				mouse_position.copy( intersections[0].point );
+				block_offset.subVectors( selected_block.position, mouse_position );
+				
+				intersect_plane.position.y = mouse_position.y;
+			}
+		};
+		
+		handleMouseMove = function( evt ) {
+			
+			var ray, intersection,
+				i, scalar;
+			
+			if ( selected_block !== null ) {
+				
+				_vector.set(
+					( evt.clientX / window.innerWidth ) * 2 - 1,
+					-( evt.clientY / window.innerHeight ) * 2 + 1,
+					1
+				);
+				projector.unprojectVector( _vector, camera );
+				
+				ray = new THREE.Raycaster( camera.position, _vector.sub( camera.position ).normalize() );
+				intersection = ray.intersectObject( intersect_plane );
+				mouse_position.copy( intersection[0].point );
+			}
+			
+		};
+		
+		handleMouseUp = function( evt ) {
+			
+			if ( selected_block !== null ) {
+				_vector.set( 1, 1, 1 );
+				selected_block.setAngularFactor( _vector );
+				selected_block.setLinearFactor( _vector );
+				
+				selected_block = null;
+			}
+			
+		};
+		
+		return function() {
+			renderer.domElement.addEventListener( 'mousedown', handleMouseDown );
+			renderer.domElement.addEventListener( 'mousemove', handleMouseMove );
+			renderer.domElement.addEventListener( 'mouseup', handleMouseUp );
+		};
+	})();
+
+
+
+
+
+
+
+
+
+
+	window.onload = initScene;
+	
+	</script>
+</head>
+
+<body>
+	<div id="heading">
+		<h1>Blocksworld in Physijs</h1>		
+	</div>
+
+   
+	<div id="viewport"></div>
+  
+</body>
+
+</html>

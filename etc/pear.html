@@ -1,0 +1,58 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<script type="text/javascript" >
+
+var gCanvas; 
+var ctx;
+var L = 500;
+var x = 0
+var imageObj;
+
+function init() {
+
+    gCanvas = document.getElementById('canvas');		
+      gCanvas.style.width = L + "px";
+      gCanvas.style.height = L + "px";
+      gCanvas.width = L;
+      gCanvas.height = L;
+      ctx = gCanvas.getContext("2d");  
+
+console.log(123)
+	imageObj = new Image();
+
+      imageObj.onload = function() {
+
+		console.log(456)
+		setInterval(step, 70);  
+	      
+      };
+      imageObj.src = 'pear.gif'
+
+}
+function step(){
+
+	ctx.drawImage(imageObj, x, 1)
+	x += 10
+	if (x> 1.5* L) x-= 3*L;
+}
+
+</script>
+
+
+
+</head>
+
+<body onload="init()" >
+
+<div id="container">
+    	 <canvas id="canvas"/>
+</div>
+.
+
+</body>
+</html>
