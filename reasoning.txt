@@ -1,0 +1,40 @@
+munchausen trilemma
+
+
+descartes doubt/ demon
+brain in a vat
+simulation hypothesis (which lever are we ?)
+boltzmann brain -> Cognitive unstability
+Coherentism
+Humes problem of induction
+Feyerbaun Agains Method
+why the world exists
+The unreasonable of Mathematics
+
+chance of 1o^-100 events vs yur reasoning is wrong: https://www.lesswrong.com/posts/GrtbTAPfkJa4D6jjH/confidence-levels-inside-and-outside-an-argument
+
+do not use 0/1 proabbility priors : https://www.lesswrong.com/posts/ooypcn7qFzsMcy53R/infinite-certainty
+
+https://www.lesswrong.com/posts/6FmqiAgS8h4EJm86s/how-to-convince-me-that-2-2-3
+
+https://mathoverflow.net/questions/34710/succinctly-naming-big-numbers-zfc-versus-busy-beaver#comment80378_34850
+https://mathoverflow.net/questions/67214/pi1-sentence-independent-of-zf-zfconzf-zfconzfconzfconzf-etc
+
+large cardinals axioms and confidence
+large natural numbers, ordinals
+non-standard models of arithmetics
+undefinability of Truth
+(recursive, countable)
+turing machine halting <- iterated consistency 
+metamathematics : proof_model__theory?
+Paris-Harrigton theorem / (Hydra theorem)
+coutable models of ZFC
+non well-ground sets , 
+godel theorems
+set theory paradoxes / set of all sets ( ordinal of all ordinals),
+ ordinal notaton / definition
+
+russel's paradox
+large countable ordinal
+kleene's O
+Ordinal Notation
