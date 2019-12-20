@@ -3,6 +3,9 @@
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans|Vollkorn&display=swap" rel="stylesheet"> 
 <link rel='stylesheet' href='style1.css'/>
+<style>
+    @font-face { font-family: bold; src: url('etc/VeryBold.ttf'); } 	  
+</style>
 
 <title>Social AI</title>
 </head></p>
@@ -17,14 +20,31 @@ What I cannot create, I do not understand<br>  Richard Feynman</em></div></div><
 <p><div style="overflow: hidden;"><div class="quote"><em> 
 Instead of trying to produce a programme to simulate the adult mind,<br> why not rather try to produce one which simulates the child's?</em><br> Alan Turing </div></div><p></p></p>
 
+<ul> Use of a microworld to study Social Artificial Intelligence 
+<li>	Childlike representations
+<li>		Curriculum Learning
+<li>		Environment inspired by Evolutionary Psychology 
+<li>		Advanced, Revolutionary, Disruptive Architecture
+<li>		Use the WIT learning technique: 
+	Whatever-it-takes : reinforcement/ supervised/ curriculum/ imitation learning & (horrors...) hard-coding
+</ul>
+
 <div>
-<p>
-This project dual work of understanding how people can manage social relationhips at the same time that implement them into Artificial Intelligence.
-</p><p>
-Recent developments in Machine Learning and collective effort can lead us a long way into this. 
-While most use huge neural networks with implicit knowledge, our social AI will build models of the world, for explanation, imagination, planning,  After all, <em>consciousness itself happens when are manipulating world models.</em>
-</p>We propose:
+
  <ul>
+ <li>
+Inspired by on neuroscience - in particular, base the decision making in structured representaions of the worodl state (see next item)
+[<a href='References.html#DLNeuro'>1,</a><a href='References.html#BioNextAI'>2,</a><a href='References.html#NeuroDec'>3</a>]
+</li>
+
+<li>
+Concrete and sucessively abstract cocepts: [<a href='References.html#NeuroSem'>1</a> ,  <a href='References.html#AbstractCon'>2</a>  ]
+</li>
+
+ <li class='big-li'> Grounding Language: <a href='References.html#ExtendLang'> 
+"In humans, language is psrt of a larger system for acquiring, representing and communicating about objects and situationsin the physical and social world, and future machine language models should emulate such a system"</a></li>
+ <li class='big-li'> Start with a basic language containing <a href='References.html#InitLang'> interrogatives, conditionals, imperatives, causality, actors, imaginary sequences of events</a>. Social / moral concepts will be later defined atop these representations. </li>
+
  <li class='big-li'><a href = 'https://arxiv.org/abs/1610.03585'> Grounding on a environment </a> (<a href='#env'>see below</a>) that exercises social abilities (in a abstract way; We will ignore audio-visual and motor abilities for now.)</li>
  
  <li class='big-li'><details><summary>Implement "infant-like knowledge representations"  (vs waiting the Gradient descent to work)</summary>
@@ -32,32 +52,36 @@ While most use huge neural networks with implicit knowledge, our social AI will 
   <p><em>Finally, we recognize that some researchers still hold out hope that if only they can just get big enough training datasets, sufficiently rich tasks, and enough computing power -- far beyond what has been tried out so far -- then deep learning methods might be sufficient to learn representations equivalent to what evolution and learning provides humans with. We can sympathize with that hope and believe it deserves further exploration, although we are not sure it is a realistic one. We understand in principle how evolution could build a brain with the cognitive ingredients we discuss here.<b> Stochastic hill-climbing is slow -- it may require massively parallel exploration, over millions of years with innumerable dead-ends -- but it can build complex structures with complex functions if we are willing to wait long enough. In contrast, trying to build these representations from scratch using backpropagation, deep Q-learning or any stochastic gradient-descent weight update rule in a fixed network architecture may be unfeasible regardless of how much training data are available. To build these representations from scratch might require exploring fundamental structural variations in the network's architecture, which gradient-based learning in weight space is not prepared to do.</b> Although deep learning researchers do explore many such architectural variations, and have been devising increasingly clever and powerful ones recently, it is the researchers who are driving and directing this process. Exploration and creative innovation in the space of network architectures have not yet been made algorithmic. Perhaps they could, using genetic programming methods or other structure-search algorithms . We think this would be a fascinating and promising direction to explore, but we may have to acquire more patience than machine learning researchers typically express with their algorithms: the dynamics of structure-search may look much more like the slow random hill-climbing of evolution than the smooth, methodical progress of stochastic gradient-descent. An alternative strategy is to build in appropriate infant-like knowledge representations and core ingredients as the starting point for our learning-based AI systems, or to build learning systems with strong inductive biases that guide them in this direction.</em>
 <a href="https://arxiv.org/abs/1604.00289">Building Machines That Learn and Think Like People</a></p>
 </blockquote></details></li>
- 
+
+
+
  <li class='big-li'> Nodes representing basic features: agents, words, times, events, numbers, energy, etc. Probabilistic activations and sqeuences implement more abstract concepts.</li>
+<li class='big-li'><a href='Roadmap.html#PredNet'>Generative networks for past/ future/ capabilities/ event generation, trained at each time step with actual events.</a></li>
+<li class='big-li'>  <a href='References.html#CompReason'> Multi-hop reasoning </a>for complex mental operations such as question answering and planning. </li>
+
+
  
- <li class='big-li'> Start with a basic language containing <a href='Roadmap.html#InitLang'> interrogatives, conditionals, imperatives, causality, actors, imaginary sequences of events</a>. Social / moral concepts will be later defined atop these representations. </li>
+
+ 
+
  
  
  <li class='big-li'>Reinforcement Learinig with self-play for comprehensive/automatic exploration of new social scenarios
     (<a href='https://en.wikipedia.org/wiki/AlphaZero'>Alphazero</a>, <a href='References.html#DealDeal'>Negotiatition</a>)</li>
      
-<li class='big-li'><a href='Roadmap.html#PredNet'>Generative networks for past/ future/ capabilities/ event generation, trained at each time step with actual events.</a></li>
 
-<li class='big-li'>  <a href='References.html#CompReason'> Multi-hop reasoning </a>for complex mental operations such as question answering and planning. </li>
 
  <li class='big-li'>  Interactive training: <a href='References.html#Annabel'>users evaluate </a> if the action is correct in a scenario
         <a href='References.html#Dungeon'>and suggest better options .</a>  
         <em>(TODO: save retraining effort when the architecture is updated)</em>
         </li>
-        
- <li class='big-li'>   Processing of events and (real or imaginary) temporal sequences <em>(work in progress)</em> </li>
- 
+
   <li class='big-li'> <a href='Roadmap.html#FPS'>Social planning </a> [<a href='References.html#SocialPlan'>1</a>,<a href='References.html#LogicTom1'>2</a> , <a href='References.html#LogicToM3'>3</a>] with <a href='References.html#Indspeech'>Sophisticated language use</a>,   
   using <a href='References.html#BayesToM'>bayesian</a><a href='References.html#PragmaticLang'> reasoning</a> to understand other minds 
   and <a href='References.html#LogRuleInd'>rule extraction</a> for interpretability</li>
 
 <li class='big-li'>
-<details><summary>Coding skills directly when alternatives are not efficient</summary>
+<details><summary>And finally... implementing abilities/concepts directly when alternatives are not efficient</summary>
 <blockquote>
   <p><em>This raises the question of how humans might learn even more abstract tasks,and Bengio (2013b) studies the hypothesis that the use of language and the evolution of culture could have helped humans reduce that difficulty(...) The basic idea is that humans (and current learning algorithms) are limited to “local descent” optimization methods, that make small changes in the parameter values with the effect of reducing the expected loss in average. This is clearly prone to the presence of local minima, while a more global search (in the spirit of both genetic and cultural evolu tion) could potentially reduce this difficulty. One hypothesis is that more abstract learning tasks involve more challenging optimization difficulties, which would make such global optimization algorithms necessary if we want computers to learn such abstractions from scratch. Another option, following the idea of curriculum learning (Bengio et al., 2009), is to provide guidance ourselves to learning machines (as exemplified in the toy example of Gulcehre and Bengio (2013)), by “teaching them” gradually more complex concepts to help them understand the world around us (<b>keeping in mind that we also have to do that for humans and that it takes 20 years to complete</b>).</em> 
 <a href="https://arxiv.org/abs/1203.2990">Evolving Culture vs Local Minima, Y Bengio
@@ -70,6 +94,26 @@ While most use huge neural networks with implicit knowledge, our social AI will 
 </div>
 <hr>
 
+<p><div style="overflow: hidden;"><div class="quote"><em>
+Learn a lot. Try to understand how the whole universe works, from the philosophical, logical, mathematical and physical aspects to chemistry, biology, and the sciences based on those, to the historical sciences such as cosmology, paleontology, archaeology and history, to the social sciences such as psychology, sociology, anthropology, politics and economics, to the aspects that are captured best in literature, art and music. <a href='https://intelligence.org/2014/02/21/john-baez-on-research-tactics/ '>John Baez</a> 
+</p></em></div></div><p></p></p>
+
+<details style='font-size:100%'><summary>Recomended Bibliography (show)</summary>
+<li> The Big Picture: On the Origins of Life, Meaning, and the Universe Itself
+<li> Princeton conmpanion to mathematics
+<li> Quantum Field Theory and the Standard Model
+<li> The Selfish Gene 
+<li> The Major Transitions in Evolution
+<li> How the Mind Works
+<li> The Mating Mind: How Sexual Choice Shaped the Evolution of Human Nature 
+<li> The Origin of Mind: Evolution of Brain, Cognition, and General Intelligence
+<li> Computational Cognitive Neuroscience Book
+<li> MULTIAGENT SYSTEMS - Algorithmic, Game-Theoretic,and Logical Foundations
+<li> Artificial intelligence: a modern 
+<li> Superintelligence: Paths, Dangers, Strategies
+<li> Life 3.0: Being Human in the Age of Artificial Intelligence
+<ul>
+</details>
 
 <details style='font-size:100%'><summary>More info about the present status</summary>
 
@@ -86,12 +130,19 @@ Now is the hard work of implementing reasoning skills and teaching lessons whene
 <a href='Roadmap.html' style='font-size:150%' >Roadmap </a><br>
 
 <a href='#' style='font-size:150%'>Code</a><br>
-<a href='etc/index-etc.html' style='font-size:100%'>Other stuff</a><br>
-<a href='etc/squares/d.html' style='font-size:100%'>Original Squares Project</a>
+<a href='etc/squares/d.html' style='font-size:100%'>Original Squares Project</a><br>
+<a href='Consc.html' style='font-size:100%'>What this means to the grand questions of our times</a><br>
+<a href='#etc' style='font-size:100%'>Other stuff</a><br>
 <br><hr><br>
 
 
-<p>Socially believable agents are important milestones for, among other things:</p>
+<p>Possible uses</p>
+<p><div style="overflow: hidden;"><div class="quote"><em>
+ "Probably one of the biggest challenges in AI is to make a socialbot that can talk to a person and be more like a person than the person itself." – Buniatyan</p><p>
+There is no point in building a machine with the intelligence of a man, since it is easier to construct human brains by the usual method. - Bertram Bowden</p><p>
+“It is quite possible--overwhelmingly probable, one might guess-- that we will always learn more about human life and personality from novels than from scientific psychology” -Noam Chomsky</p></em></div></div><p></p></p>
+
+
 
 <ul>
 <li>Personal assistants,responsible chatbots</li>
@@ -107,17 +158,79 @@ One possible future for the open world game may be na experience that combnins t
   <a href="https://www.theguardian.com/technology/2016/oct/12/video-game-characters-emotional-ai-developers">Video games where people matter? The strange future of emotional AI</a></p>
 </blockquote></details>
 
-
 </li>
-<li>research on (Evolutionary) Psychology</li>
-<li> Consciousness, qualia and the <em>Value Alignment problem</em> <a href="Consc.html">(More details)</a> </li>
+<li> An algorithmic implementation of: social concepts ; humor,art, spirtuality ;  emotions ( happines,fear anger, sadness...) ; qualia
+leads us to... <a href="Consc.html"> something awesome ?</a>
+ </li>
+<!-- li> Consciousness, qualia and the <em>Value Alignment problem</em> (More details)</a> </li -->
 </ul>
+
+
+<h2>Why to base the environment on abstract social scenario ?</h2>
+<ul>
+<li>It is interesting</li>
+<li> Fast iteration</li>
+<li> Will provide insight for real-world applications</li>
+<li>A large number of agents (> 100), allows to explore the <a href='References.html#Nperson'>psychology</a> of
+<a href='References.html#CoalitionRep'> social gorups / coalitions</a></li>
+</ul>
+It is probable that current techniques of Deep Learning alone will not be sufficient to tackle the challenge of an AI that can intereactl in the real world ( cf <a href='https://Rebooting.ai> Rebooting.ai</a>
+
+
+<h2>Commonsense Research</h2>
+<a href='http://commonsensereasoning.org/'> Commonsense Conference</a>
+and formal approaches are <a href= 'http://en.wikipedia.org/wiki/Cyc'> brittle</a>
+<ul>
+<li>    Time, change, action, causality 
+<li>    Mental states such as beliefs, intentions, and emotions
+<li>    Social activities and relationships
+</ul>
+While complementing usual methods as Statistical and corpus-based, Crowdsourcing and Hand-crafting domain theories
+</ul>
+
+
+
+<details><summary>Ideal Agents vs Bounded resources</summary>
+
+<p><div style="overflow: hidden;"><div class="quote"><em> 
+10<sup>100</sup> ~ O(1)
+</em> </div></div><p></p></p>
+
+<blockquote>
+An agent is a system that receives data from the world and acts on it. Intelligence is its ability to act purposefully towards some goal. It is difficult to say anything nontrivial about general intelligence in general. Marcus Hutter (2005) has demonstrated that a very simple algorithm called AIXItl can demonstrate arbitrarily high levels of general intelligence if given sufficiently immense computational resources. <b>This is interesting because it shows that general intelligence is basically a problem of computational efficiency. Due to the harsh reality of computational resource restrictions, real-world general intelligences are necessarily biased to particular classes of environments.</b> Human intelligence is geared toward the physical, social and linguistic environments in which humanity evolved; and one would expect intelligences of radically nonhuman systems (like present agents ?) to be highly biased toward their particular classes of environments in which they evolved. 
+<a href='http://journalofcosmology.com/SearchForLife115.html' >Goertzel, Ben and Allan Combs.
+[Water Worlds, Naive Physics, Intelligent Life, and Alien Minds]</a>
+</blockquote>
+<blockquote>
+An important observation is that most, if not all known facets of intelligence can be formulated as goal driven or, more precisely, as maximizing some utility function.(...) The major drawback of the AIXI model is that it is uncomputable, ... which makes an implementation impossible. To overcome this problem, we constructed a modified model AIXItl, which is still effectively more intelligent than any other time t and length l bounded algorithm. (---) AIXI captures “the major ideas of Bayes, Ockham, Epicurus, Turing, von Neumann, Bellman, Kolmogorov, and Solomonoff” in a single equation. 
+</blockquote>
+<p>
+Related agents are the Godel Machine (rewrites itself), and hypothetical Bayesian and Logical Omniscient (knows all the consequences to its beliefs, has infinite computational resources).
+</p>
+
+The ideal agent approximation breaks down if the agent can manipulate itself as part of enviroment: may hijack input, operators, overheat, become drunk
+
+<blockquote>
+Of course, logical induction does not solve all the problems of reasoning under deductive limitation—far from it! They do not engage in meta-cognition (in the sense of Russell and Wefald [1991b]) to decide which facts to reason about next, and they do not give an immediate practical tool (as in the case of probabilistic integration [Briol, Oates, Girolami , Osborne, and Sejdinovic 2015]), and they have abysmal runtime and uncomputable convergence bounds. <b>It is our hope that the methods logical inductors use to aggregate expert advice will eventually yield algorithms that are useful for various applications, in the same way that useful ensemble methods can be derived from Solomonoff’ s theory of inductive inference. </b>
+</blockquote>
+</details>
+
+
+
+
+
+
+
 
 <a name='env'></a>
 <h1>Environment and Evolutionary Psychology</h1>
 
+
+
+    
+
 <p><div style="overflow: hidden;"><div class="quote"><em>
-It's a gene-eat-gene world
+It's a gene-eat-gene world .
  </em></div></div><p></p></p>
 
 <p><blockquote>
@@ -129,9 +242,6 @@ Even though the human mind evolved to serve evolutionary goals of reproductive s
 
 <p>The environment used to explore the human psychology and how it evolved</p>
 
-<p>Our environment will lead to interpersonal competiiton as a driver for interesting phenomena . The amount of food is limited and thea gents have to compete for mates, feed theis children and relate to peers and kin They can forage food, give or hit (remove) energy to/from other agents, and mate leading to offsring. Agents may have inheritable fitness <a href="References.html#AttMate">AttMate</a>  and psychological characteristics. </p>
-
-<p>While we could evolve these algorithmes, to lessen computational costs the instints  drives(feed, mate, help kin and offspring, make friends etc), and emotions(happiness, sadness, fear, anger, surprise etc) will be to some extent hardcoded.</p>
 
 
 
@@ -140,11 +250,10 @@ Even though the human mind evolved to serve evolutionary goals of reproductive s
 <p>More concretely, it is a hypothetical land with enough food to support some 200 agents. Each agent has a gender, age and level of energy, that inreases by eating and decreases with age and sickness. If the energy reaches 0 the agent dies.</p>
 
 <p><div style="overflow: hidden;"><div class="quote"><em>
-Perfection is attained not when no more can be added, but when no more can be removed<br></em>
+Perfection is attained not when no more can be added,<br> but when no more can be removed .<br></em>
  Antoine de Saint Exupery
 </div></div><p></p></p>
 
-<p><img src="environment.png" alt="Environment" title=""  class='center'/></p>
 
 <p>At each step the agents can take these actions:</p>
 
@@ -154,8 +263,15 @@ Perfection is attained not when no more can be added, but when no more can be re
 <li>mate </li>
 </ul>
 
+<p><img src="environment.png" alt="Environment" title=""  class='center'/></p>
+
+
+
 <p>There is a probability that private actions  of other agents will be discovered by an random agent, leading eventually to gossip.</p>
 
+<p>Our environment will lead to interpersonal competiiton as a driver for interesting phenomena . The amount of food is limited and thea gents have to compete for mates, feed theis children and relate to peers and kin They can forage food, give or hit (remove) energy to/from other agents, and mate leading to offsring. Agents may have inheritable fitness <a href="References.html#AttMate">AttMate</a>  and psychological characteristics. </p>
+
+<p>While we could evolve these algorithmes, to lessen computational costs the instints  drives(feed, mate, help kin and offspring, make friends etc), and emotions(happiness, sadness, fear, anger, surprise etc) will be to some extent hardcoded.</p>
 
 
 <h3>Relationships</h3>
@@ -188,8 +304,9 @@ The author surveys the kinds of relationship <br>and their algorithmic, evolutio
 <!-- /div></div><p></p-->
 </p>
 
-<li><a name="CoalitionRep"
-<p>The use of a large population > 100, allows to explore the <a href='References.html#Nperson'>psychology</a><a href='References.html#CoalitionRep'> of coalition-forming.</a></p>
+
+<p>The use of a large population > 100, allows to explore the <a href='References.html#Nperson'>psychology</a> of
+<a href='References.html#CoalitionRep'> coalition-forming.</a></p>
 
 <p>They reproduce sexually, transmiting genes that control their behavior ( or use the number of grandchildren as a proxy to fitness to calculate gradientes for updating a neural network). So acquiring mates, childcare and building relationhips become crucial.</p>
 
@@ -211,7 +328,7 @@ The author surveys the kinds of relationship <br>and their algorithmic, evolutio
 
 
 
-<h1>Release</h1>
+<!-- h1>Release</h1>
 
 <p>We intend to release the software in a open-source sandbox to generate and edit histories/narratives. 
 The API will probably allow a timeline to go forward, rewind, saved, replayed with different random seed.
@@ -223,7 +340,7 @@ For example: "There was 10 people who" and the model completes the story, while 
 (Where the <a href="http://en.wikipedia.org/wiki/Uncanny_Valley">uncanny valley</a> will arise if one asks stuff the agents are not prepared to answer - "Do you like ice-cream?" )</p>
 
 <p>The interaction convincing if situated whitihn the boundaries of the agent's world. For an example, asking an agent about the relationship with his friends or what funny situtations it experienced. 
-One may try mathematically or philosophically inclined agents.</p>
+One may try mathematically or philosophically inclined agents.</p -->
 
 <h1>How can you help?</h1>
 
@@ -234,6 +351,33 @@ One may try mathematically or philosophically inclined agents.</p>
 </ul>
 
 <p><we need you poster></p>
+
+<hr>
+<div style='font-size:80%'>
+<a name='etc'></a>
+<h2>Other stuff</h2>
+<p><a href='etc/landscape.html'> Fly over a sunny scenario using webgl</a></p>
+<p><a href='etc/gan/ganchoose.html'>Evolve faces using GAN</a> (better with GPU)</p>
+<p><a href='etc/gpt2-moviesum.txt'>Using GPT-2 to generate movie summaries</a></p>
+<p><a href='etc/bricks.py'>Python program to calculate configurations of LEGO-like bricks</a></p>
+<p><a href='etc/randomurl/randomurl.html'>Go to random urls</a></p>
+<p><a href='etc/VeryBold.ttf' style="font-family:bold" >Download a Very Bold font (free)</a></p>
+
+<p>.</p>
+<p><a href='etc/pear.html'>Impermanence 1</a></p>
+<p><a href='etc/blocks/blocks_vanish.html'>Impermanence 2</a></p>
+<p><a href='etc/names/names2.html'>Impermanence 3 (friends)</a></p>
+<p><a href='etc/names/names.html'>Billions of friends</a></p>
+
+<p>.</p>
+<p><a href='etc/boxs.jpg'>My future AGI paradise</a> --- 
+<a href='etc/render.zip'>Zip file to generate it using POV</a></p>
+<p><a href='etc/kiss-me.png'>Kiss image</a></p>
+<p><a href='etc/spotfire-bar.jpg'>Bar Chart</a></p>
+</div>
+
+</div>
+
 
 
 </body></html>
