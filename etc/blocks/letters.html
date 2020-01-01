@@ -3,14 +3,14 @@
 <html>
 
 <head>
-	<title>BlocksWorld - Physijs</title>
+	<title>Falling Letters</title>
 	
 	<link rel="stylesheet" type="text/css" href="examples/css/styles.css" />
 	
 	<script type="text/javascript" src="examples/js/three.min.js"></script>
 	<script type="text/javascript" src="examples/js/stats.js"></script>
 	<script type="text/javascript" src="examples/js/tween.js"></script>
-	<script type="text/javascript" src="letter.js"></script>
+	<!-- script type="text/javascript" src="letter.js"></script -->
 	<script type="text/javascript" src="physi.js"></script>
 
 	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
@@ -38,7 +38,7 @@
 
      function initScene(){
 		var loader = new THREE.FontLoader();
-			loader.load( 'VAGRound.json', function ( font0 ) {
+			loader.load( 'Font.json', function ( font0 ) {
 				font = font0;
 				initScene0(  );
 				//animate();
@@ -204,7 +204,8 @@
 	
 		var material = new THREE.MeshLambertMaterial({  })
 
-		var str = "QWERTYUIOPASDFGHJKLZXCVBNM";
+		//var str = "qwertyuiopasdfghjklzxcvbnm";
+        var str = "QWERTYUIOPASDFGHJKLZXCVBNM";
 		str = str[Math.floor(Math.random()*str.length)];
 		var shape =createLetter(material, font, str, mass);
 	
