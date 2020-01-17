@@ -1,0 +1,295 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel='stylesheet' href='../../style1.css'/>
+</head>
+
+<body>
+
+<div class="container">
+
+<script type="text/javascript" >
+"use strict"
+
+var canvas, divScore; 
+var ctx;
+var L = 7, dx= 50;
+var g =[];
+var turn;
+var whiteAI, blackAI;
+var WHITE = 1, BLACK =-1;
+
+     function getMousePos(canvas, evt) {
+        var rect = canvas.getBoundingClientRect();
+        return {
+          x: evt.clientX - rect.left,
+          y: evt.clientY - rect.top
+        };
+      }
+		function createMouseEvent(canvas, x,y){
+			var rect = canvas.getBoundingClientRect();
+			return new CustomEvent('build', { clientX: x+ rect.left, clientY: y+ rect.top});
+	
+	}
+
+
+function init() {
+
+	divScore = document.getElementById('score');
+      canvas = document.getElementById('canvas');	
+      whiteAI = document.getElementById('whiteAI');	
+      blackAI = document.getElementById('blackAI');		
+      canvas.style.width = (L+2)*dx + "px";
+      canvas.style.height = L*dx + "px";
+      canvas.width = (L+2)*dx;
+      canvas.height = L*dx;
+      ctx = canvas.getContext("2d");  
+
+	for (var x=0; x< L; x++){	
+		g[x] =[]
+	for (var y=0; y< L; y++){	
+		g[x][y] = 0
+	}}	
+	turn = 1
+
+	canvas.addEventListener('click', function(evt) {
+        var pos = getMousePos(canvas, evt);
+	var x = Math.floor(pos.x / dx), y = Math.floor(pos.y/dx);
+        if ( x < L && y < L)
+        click({x:x,y:y})
+      }, false);
+	paint();
+}
+
+
+function execute_move(board, move, color){
+    var x0 = move.x, y0 = move.y;
+    
+    var board2 = clone(board);                  
+    for (var dx =-1; dx <=1; dx++){
+    for (var dy =-1; dy <=1; dy++){
+        for (var k=1; k<L; k++){
+            var x = x0 + k*dx;
+            var y = y0 + k*dy;
+            if (x<0 || y<0 || x>= L || y >= L || board2[x][y] == 0)
+                break;
+            board2[x][y] *= -1 
+        }   
+    }}  
+
+   
+    board2[x0][y0] = color;
+    return board2;
+}
+
+function click(move){
+    var x = move.x, y = move.y;
+	if (g[x][y] !=0) return;
+    g = execute_move(g, move, turn);
+    /*for (var x=0; x< L; x++){	
+	for (var y=0; y< L; y++){
+        g[x][y] = g1[x][y];
+    }}*/
+
+	turn = -turn;
+	
+	paint();
+	if (turn == WHITE && whiteAI.checked) setTimeout(ai,300);
+	else if (turn == BLACK && blackAI.checked) setTimeout(ai,300);
+	
+}
+
+function score(board, turn){
+	var s=[0,0,0];
+	for (var x=0; x< L; x++){	
+	for (var y=0; y< L; y++){
+		 s[ board[x][y]+1] ++;
+	}}
+	return s;
+}
+function paint(){
+    var s = score(g);
+	divScore.innerHTML = 'white: '+ s[WHITE+1] + '<br>black: ' + s[BLACK+1]
+
+
+	ctx.fillStyle = 'rgb(128,255,128)'
+	ctx.fillRect(0,0, (L+2)*dx, L*dx);
+
+	ctx.fillStyle = 'black'
+	ctx.font="18px Verdana";
+	ctx.fillText('Next Turn:', (L+0.1)*dx, dx/2);
+	ctx.fillStyle = (turn == WHITE) ? 'white' : 'black'
+	ctx.fillRect((L+0.5)*dx,dx*2/3, dx, dx);
+
+	for (var x=0; x< L; x++){	
+	for (var y=0; y< L; y++){
+
+		ctx.fillStyle = [ 'black', 'green' ,'white'][ g[x][y] +1]; 
+
+		ctx.fillRect(x*dx, y*dx, dx-5,dx-5);
+	}}
+}
+
+
+function clone( board){
+    var board2 = []
+	for(var x=0;x<L; x++){
+	board2[x] = []
+	for(var y=0; y<L; y++){		
+		board2[x][y] = board[x][y]
+	}}
+    return board2;
+}
+function rndi(z){return Math.floor(Math.random()*z); }
+function rnda(a){return a[rndi(a.length)] }
+
+
+function argmax(arr){
+    var ret = 0, max = arr[0];
+    for (var i=1; i< arr.length; i++){
+        if (arr[i] > max){ max = arr[i]; ret = i;}        
+    }
+    return ret;
+}
+
+
+function valuesMaxMin( board, curPlayer){
+    var empty = getEmpty(board);
+    if (empty.length ==0) return [score(board)[curPlayer+1] ];
+
+    var values = Array(L*L).fill(-999);  
+    for (var i=0; i< empty.length; i++){
+
+        //values[action] = Math.min( ... valuesMaxMin(execute_move(board, empty[i], curPlayer), -curPlayer).apply( x => -x) )
+
+        // Math.minmin( [-x for x in self.valuesMaxMin( board1, -curPlayer) if x!=-999] )
+
+        var action = empty[i];
+         var board2 = execute_move(board, action, curPlayer);
+         var aux = valuesMaxMin(board2, -curPlayer);
+        values[action.x *L + action.y] = Math.min( ... aux.map( x => -x) );
+
+    }
+    return values;
+}
+function ai(){
+	var empty = getEmpty(g);
+    if (empty.length ==0) return;
+    if (empty.length > 8 || empty.length < 2){
+        var move = rnda( empty );
+        click(move);
+        return;
+    }
+    
+    var values = self.valuesMaxMin(g, turn);
+    var action = argmax( values)
+    
+ 	click({x:Math.floor(action /L) , y: action % L} );
+}
+
+function getEmpty(board){
+	var ret = []
+	for(var x=0;x<L; x++){
+	for(var y=0; y<L; y++){		
+		if (board[x][y] ==0) ret.push({x:x, y:y});
+	}}
+	return ret;
+}
+
+
+</script>
+
+</head>
+
+<body onload="init()" >
+<h1>A minute to learn, forever to stop being a novice</h1>
+
+The game starts with an empty grid of NxN squares, where White (who starts) and Black alternatively put pieces.
+<h3>Rule 1 (and only)</h3>
+ <em> When a piece is placed, you trace rays in the 8 directions (left right up down and 4 diagonals) flipping pieces until hitting an empty square.</em>
+
+<img src='rule.png'></img>
+
+<h2>Rationale:</h2>
+
+</p><p> 
+This is an example of a simple but very hard to learn game.
+</p><p> 
+The most pure example of an unlearnable game would be one where there is an empty array of L bits and players alternatively add an 0 or 1 in the next position. After L rounds a a random function 2^L -> 2  determinies the winner - in the practical case the functon can be a cryptographic hash (like MD5 or SHA) maybe adding a salt, and the winner determined by for example the least significant bit of the result. As this would be very unintuitive I selected the flipping rule above that promotes a mixing of board states.
+</p><p> 
+The game's sucessive fllipping of pieces causes an avalanche effect [cite] (where one small alteration causes a larger effect afterwards), making the final state effectively unpredictable.
+</p><p> 
+I trained a bot [cite alphazero general] that uses the same technique of alphazero[cite] - monte carlo tree search[cite] and a deep neural network[cite] for board evaluation.
+</p><p> 
+
+<pre style='font-family:monospace;font-size:80%'>
+------ITER 15------
+Self Play |################################| (30/30) Eps Time: 2.745s | Total: 0:01:22 | ETA: 0:00:03
+len(trainExamplesHistory) = 21  => remove the oldest trainExamples
+Checkpoint Directory exists! 
+EPOCH ::: 1
+Training Net |#                               | (3660/3675) Data: 0.030s | Batch: 0.045s | Total: 0:02:44 | ETA: 0:52:22 | Loss_pi: 2.3849 | Loss_v: 1.013
+EPOCH ::: 2
+Training Net |#                               | (3660/3675) Data: 0.030s | Batch: 0.045s | Total: 0:02:44 | ETA: 0:52:22 | Loss_pi: 2.1870 | Loss_v: 0.969
+EPOCH ::: 3
+Training Net |#                               | (3660/3675) Data: 0.030s | Batch: 0.045s | Total: 0:02:44 | ETA: 0:52:21 | Loss_pi: 2.0289 | Loss_v: 0.885
+EPOCH ::: 4
+Training Net |#                               | (3660/3675) Data: 0.030s | Batch: 0.045s | Total: 0:02:44 | ETA: 0:52:21 | Loss_pi: 1.8775 | Loss_v: 0.769
+EPOCH ::: 5
+Training Net |#                               | (3660/3675) Data: 0.030s | Batch: 0.045s | Total: 0:02:44 | ETA: 0:52:19 | Loss_pi: 1.7178 | Loss_v: 0.661
+EPOCH ::: 6
+Training Net |#                               | (3660/3675) Data: 0.030s | Batch: 0.045s | Total: 0:02:44 | ETA: 0:52:22 | Loss_pi: 1.5938 | Loss_v: 0.567
+EPOCH ::: 7
+Training Net |#                               | (3660/3675) Data: 0.030s | Batch: 0.045s | Total: 0:02:44 | ETA: 0:52:22 | Loss_pi: 1.4846 | Loss_v: 0.489
+EPOCH ::: 8
+Training Net |#                               | (3660/3675) Data: 0.030s | Batch: 0.045s | Total: 0:02:44 | ETA: 0:52:22 | Loss_pi: 1.3875 | Loss_v: 0.433
+EPOCH ::: 9
+Training Net |#                               | (3660/3675) Data: 0.030s | Batch: 0.045s | Total: 0:02:44 | ETA: 0:52:22 | Loss_pi: 1.3165 | Loss_v: 0.393
+EPOCH ::: 10
+Training Net |#                               | (3660/3675) Data: 0.030s | Batch: 0.045s | Total: 0:02:44 | ETA: 0:52:22 | Loss_pi: 1.2549 | Loss_v: 0.358
+PITTING AGAINST PREVIOUS VERSION
+Arena.playGames |################################| (40/40) Eps Time: 2.766s | Total: 0:01:50 | ETA: 0:00:03
+NEW/PREV WINS : 22 / 18 ; DRAWS : 0
+
+REJECTING NEW MODEL
+------ITER 16------
+
+</pre>
+
+</p><p> 
+Unsurprisingly (as it was the intention) the board evaluation proved unlearnable; in 16 training iterations no network proved superior to the initial. I hypothetise that the only way to be an effective player is to list all possible continuations from a given configuration and use a minimax [cite] algorithm.
+</p><p> 
+Between two bots, the one with larger lookahead (more processing budget) will always win. In the same way, as humans can only predict few next steps, they will (almost) always lose to the bot (unless arriving to a very lucky position where all continuations lead to a human win.
+</p><p> 
+Like in chess and go, we call tactics the short-time and strategy as a longer-term view of the game.
+Chess engines were usually good at tactics but bad at strategy. But with the progress of technology they are now definitively superior to humans. I thus declare that this game has no strategy and the only way to win is being superior at tactics (lookahead). Does this makes it boring ?
+</p><p> 
+If you use a square 11 x 11, there will be 3^121 possible states, making its complexity compareable to strong cryptography. For example the hash SHA256 with 256 bits of output is considered safe as it aims for 256/2  = 128 bits of strength (the birthday attack [cite] halves the number of effective bits).  
+</p>
+
+
+<h3>Possible variants</h3>
+<ul>
+<li> the flipping area as a square centered on the placed piece, or knight moves away, prime numbers, etc.
+<li> stop the game and evaluate the winner before all pieces ar e placed.
+<li> Add a move to one or both players where he can
+<li> both players put pieces simultaneously (ex. backtracing if there is collision and draw if the collision continues)  
+<li> more than two players - (maybe even a Massively multiplayer online)
+<li> triangular or  hexagonal grids; 3,4,N-dimensional grid, playing on a graph [cite topological Go]
+<li> realtime /kung-fu placing [cite](?)
+</ul>
+
+<h2>Try here</h2>
+<div id="container">
+    	 <canvas id="canvas"/>
+</div>
+<div id= 'score'></div>
+<input type='button' onclick='init()' value='reset' />
+<form>
+  <input type="checkbox" id='whiteAI' name="whiteAI" value="1"> White AI<br>
+  <input type="checkbox" id='blackAI' name="blackAI" value="2"> Black AI
+</form> 
+
+</div>
+</body>
+</html>
