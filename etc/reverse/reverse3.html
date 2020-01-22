@@ -165,8 +165,8 @@ function valuesMaxMin( board, curPlayer){
         // Math.minmin( [-x for x in self.valuesMaxMin( board1, -curPlayer) if x!=-999] )
 
         var action = empty[i];
-         var board2 = execute_move(board, action, curPlayer);
-         var aux = valuesMaxMin(board2, -curPlayer);
+        var board2 = execute_move(board, action, curPlayer);
+        var aux = valuesMaxMin(board2, -curPlayer);
         values[action.x *L + action.y] = Math.min( ... aux.map( x => -x) );
 
     }
@@ -215,11 +215,11 @@ The game starts with an empty grid of NxN squares, where White (who starts) and 
 </p><p> 
 This is an example of a simple but very hard to learn game.
 </p><p> 
-The most pure example of an unlearnable game would be one where there is an empty array of L bits and players alternatively add an 0 or 1 in the next position. After L rounds a a random function 2^L -> 2  determinies the winner - in the practical case the functon can be a cryptographic hash (like MD5 or SHA) maybe adding a salt, and the winner determined by for example the least significant bit of the result. As this would be very unintuitive I selected the flipping rule above that promotes a mixing of board states.
+The most pure example of an unlearnable game would be one where there is an empty array of L bits and players alternatively add an 0 or 1 in the next position. After L/2 rounds a a random function 2^L -> 2  determines the winner - for example a <a href='https://en.wikipedia.org/wiki/Cryptographic_hash_function'>cryptographic hash (like MD5 or SHA)</a> eventually adding a salt, where the winner is, say,  the least significant bit of the result. As this would be very unintuitive the flipping rule above was selected to promote a mixing of board states.
 </p><p> 
-The game's sucessive fllipping of pieces causes an avalanche effect [cite] (where one small alteration causes a larger effect afterwards), making the final state effectively unpredictable.
+The game's sucessive fllipping of pieces causes an <a href='https://en.wikipedia.org/wiki/Avalanche_effect'>avalanche effect </a> (where one small alteration causes a larger effect afterwards), making the final state effectively unpredictable.
 </p><p> 
-I trained a bot [cite alphazero general] that uses the same technique of alphazero[cite] - monte carlo tree search[cite] and a deep neural network[cite] for board evaluation.
+I trained a bot that uses <a href='https://en.wikipedia.org/wiki/Monte_Carlo_tree_search'>Monte Carlo tree search</a> and a deep neural network for board evaluation, using <a href='https://github.com/suragnair/alpha-zero-general'>this repository</a>.
 </p><p> 
 
 <pre style='font-family:monospace;font-size:80%'>
@@ -257,26 +257,26 @@ REJECTING NEW MODEL
 </pre>
 
 </p><p> 
-Unsurprisingly (as it was the intention) the board evaluation proved unlearnable; in 16 training iterations no network proved superior to the initial. I hypothetise that the only way to be an effective player is to list all possible continuations from a given configuration and use a minimax [cite] algorithm.
+Unsurprisingly (as it was the intention) the board evaluation proved unlearnable: in 16 training iterations no network proved superior to the initial. I hypothetise that the only way to be an effective player is to list all possible continuations from a given configuration and use a <a href='https://en.wikipedia.org/wiki/Minimax'>minimax algorithm</a>.
 </p><p> 
 Between two bots, the one with larger lookahead (more processing budget) will always win. In the same way, as humans can only predict few next steps, they will (almost) always lose to the bot (unless arriving to a very lucky position where all continuations lead to a human win.
 </p><p> 
 Like in chess and go, we call tactics the short-time and strategy as a longer-term view of the game.
 Chess engines were usually good at tactics but bad at strategy. But with the progress of technology they are now definitively superior to humans. I thus declare that this game has no strategy and the only way to win is being superior at tactics (lookahead). Does this makes it boring ?
 </p><p> 
-If you use a square 11 x 11, there will be 3^121 possible states, making its complexity compareable to strong cryptography. For example the hash SHA256 with 256 bits of output is considered safe as it aims for 256/2  = 128 bits of strength (the birthday attack [cite] halves the number of effective bits).  
+If you use a square 11 x 11, there will be 3^121 possible states, making its complexity compareable to strong cryptography. For example the cryptographic hash SHA256 with 256 bits of output is considered safe as it aims for 256/2  = 128 bits of strength (the birthday attack [cite] halves the number of effective bits).  
 </p>
 
 
 <h3>Possible variants</h3>
 <ul>
 <li> the flipping area as a square centered on the placed piece, or knight moves away, prime numbers, etc.
-<li> stop the game and evaluate the winner before all pieces ar e placed.
-<li> Add a move to one or both players where he can
-<li> both players put pieces simultaneously (ex. backtracing if there is collision and draw if the collision continues)  
+<li> stop the game and evaluate the winner when there are K remaining spaces.
+<li> Allow the players to remove pieces.
+<li> both players put pieces simultaneously (ex. backtracing if there is collision and draw if the collision continues).
 <li> more than two players - (maybe even a Massively multiplayer online)
-<li> triangular or  hexagonal grids; 3,4,N-dimensional grid, playing on a graph [cite topological Go]
-<li> realtime /kung-fu placing [cite](?)
+<li> triangular or  hexagonal grids; 3,4,N-dimensional grid, <a href='http://www.segerman.org/topologo/'>playing on a graph</a> 
+<li> <a href='https://en.wikipedia.org/wiki/Kung-Fu_Chess'> realtime /kung-fu placing (?) </a>
 </ul>
 
 <h2>Try here</h2>
