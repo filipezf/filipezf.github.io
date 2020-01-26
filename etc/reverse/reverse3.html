@@ -1,5 +1,7 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+<title>A hard game...</title>
 <meta charset="UTF-8">
 <link rel='stylesheet' href='../../style1.css'/>
 </head>
@@ -8,7 +10,7 @@
 
 <div class="container">
 
-<script type="text/javascript" >
+<script>
 "use strict"
 
 var canvas, divScore; 
@@ -199,20 +201,20 @@ function getEmpty(board){
 
 </script>
 
-</head>
 
-<body onload="init()" >
+
+
 <h1>A minute to learn, forever to stop being a novice</h1>
 
 The game starts with an empty grid of NxN squares, where White (who starts) and Black alternatively put pieces.
 <h3>Rule 1 (and only)</h3>
  <em> When a piece is placed, you trace rays in the 8 directions (left right up down and 4 diagonals) flipping pieces until hitting an empty square.</em>
 
-<img src='rule.png'></img>
+<img src='rule.png' alt= 'rule example' />
 
 <h2>Rationale:</h2>
 
-</p><p> 
+<p> 
 This is an example of a simple but very hard to learn game.
 </p><p> 
 The most pure example of an unlearnable game would be one where there is an empty array of L bits and players alternatively add an 0 or 1 in the next position. After L/2 rounds a a random function 2^L -> 2  determines the winner - for example a <a href='https://en.wikipedia.org/wiki/Cryptographic_hash_function'>cryptographic hash (like MD5 or SHA)</a> eventually adding a salt, where the winner is, say,  the least significant bit of the result. As this would be very unintuitive the flipping rule above was selected to promote a mixing of board states.
@@ -220,7 +222,7 @@ The most pure example of an unlearnable game would be one where there is an empt
 The game's sucessive fllipping of pieces causes an <a href='https://en.wikipedia.org/wiki/Avalanche_effect'>avalanche effect </a> (where one small alteration causes a larger effect afterwards), making the final state effectively unpredictable.
 </p><p> 
 I trained a bot that uses <a href='https://en.wikipedia.org/wiki/Monte_Carlo_tree_search'>Monte Carlo tree search</a> and a deep neural network for board evaluation, using <a href='https://github.com/suragnair/alpha-zero-general'>this repository</a>.
-</p><p> 
+</p>
 
 <pre style='font-family:monospace;font-size:80%'>
 ------ITER 15------
@@ -256,7 +258,7 @@ REJECTING NEW MODEL
 
 </pre>
 
-</p><p> 
+<p> 
 Unsurprisingly (as it was the intention) the board evaluation proved unlearnable: in 16 training iterations no network proved superior to the initial. I hypothetise that the only way to be an effective player is to list all possible continuations from a given configuration and use a <a href='https://en.wikipedia.org/wiki/Minimax'>minimax algorithm</a>.
 </p><p> 
 Between two bots, the one with larger lookahead (more processing budget) will always win. In the same way, as humans can only predict few next steps, they will (almost) always lose to the bot (unless arriving to a very lucky position where all continuations lead to a human win.
@@ -271,17 +273,18 @@ If you use a square 11 x 11, there will be 3^121 possible states, making its com
 <h3>Possible variants</h3>
 <ul>
 <li> the flipping area as a square centered on the placed piece, or knight moves away, prime numbers, etc.
-<li> stop the game and evaluate the winner when there are K remaining spaces.
-<li> Allow the players to remove pieces.
-<li> both players put pieces simultaneously (ex. backtracing if there is collision and draw if the collision continues).
-<li> more than two players - (maybe even a Massively multiplayer online)
-<li> triangular or  hexagonal grids; 3,4,N-dimensional grid, <a href='http://www.segerman.org/topologo/'>playing on a graph</a> 
-<li> <a href='https://en.wikipedia.org/wiki/Kung-Fu_Chess'> realtime /kung-fu placing (?) </a>
+</li> <li> stop the game and evaluate the winner when there are K remaining spaces.
+</li> <li>Allow the players to remove pieces.
+</li> <li> both players put pieces simultaneously (ex. backtracing if there is collision and draw if the collision continues).
+</li> <li> more than two players - (maybe even a Massively multiplayer online)
+</li> <li> triangular or  hexagonal grids; 3,4,N-dimensional grid, <a href='http://www.segerman.org/topologo/'>playing on a graph</a> 
+</li> <li><a href='https://en.wikipedia.org/wiki/Kung-Fu_Chess'> realtime /kung-fu placing (?) </a>
+</li>
 </ul>
 
 <h2>Try here</h2>
 <div id="container">
-    	 <canvas id="canvas"/>
+    	 <canvas id="canvas"></canvas>
 </div>
 <div id= 'score'></div>
 <input type='button' onclick='init()' value='reset' />
