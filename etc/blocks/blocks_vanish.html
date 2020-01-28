@@ -399,16 +399,16 @@
 			
 			if ( selected_block !== null ) {
 				
-				_vector.set(
-					( evt.clientX / window.innerWidth ) * 2 - 1,
-					-( evt.clientY / window.innerHeight ) * 2 + 1,
-					1
-				);
-				projector.unprojectVector( _vector, camera );
-				
-				ray = new THREE.Raycaster( camera.position, _vector.sub( camera.position ).normalize() );
-				intersection = ray.intersectObject( intersect_plane );
-				mouse_position.copy( intersection[0].point );
+                              mouse.x = ( evt.clientX / window.innerWidth ) * 2 - 1;
+                              mouse.y = - (evt.clientY / window.innerHeight ) * 2 + 1;
+
+                               raycaster.setFromCamera( mouse, camera );
+
+			       const recursiveFlag = false;
+                               var intersections = raycaster.intersectObjects( [intersect_plane] );
+				if ( intersections.length > 0 ) {
+					mouse_position.copy( intersections[0].point );
+				}
 			}
 			
 		};
