@@ -25,6 +25,9 @@
         var intersect_plane, mouse_position = new THREE.Vector3, block_offset = new THREE.Vector3 ;
         var impulse =0;
 	var SHIFT = 0;
+	
+    	var y0 = null, lastlen = 0;
+    	var touch_y0=0, block_y0 = null, block_dy=0; 	
 
         function initScene () {
 		renderer = new THREE.WebGLRenderer({ antialias: true });
