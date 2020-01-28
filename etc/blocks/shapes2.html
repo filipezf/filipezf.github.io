@@ -29,7 +29,7 @@
 
         function initScene(){
 		var loader = new THREE.FontLoader();
-			loader.load( 'VAGRound.json', function ( font0 ) {
+			loader.load( 'Font.json', function ( font0 ) {
 				font = font0;
 				initScene0(  );
 			} );
@@ -71,11 +71,13 @@
 			function() {
 
 				if ( selected_block !== null ) {
-					const v3 = new THREE.Vector3					
+					const v3 = new THREE.Vector3;					
 					v3.copy( mouse_position ).add( block_offset ).sub( selected_block.position ).multiplyScalar( 5 );
 					v3.y = impulse * 2.5;
-					selected_block.setLinearVelocity( v3 );
-					selected_block.moved = true;
+                    const move_block = selected_block.mv;
+
+					move_block.setLinearVelocity( v3 );
+					//selected_block.moved = true;
 
 					// Reactivate all of the blocks
 					v3.set( 0, 0, 0.001 );
@@ -140,25 +142,27 @@
 		ground.receiveShadow = true;
 		scene.add( ground );
 		
-		var L = 30
-		/*var xz = [[0,L], [0,-L],[-L,0],[L,0]]
+         const bumper_geom = new THREE.CubeGeometry(50, 50, 1);
+        const invisible_material = new THREE.MeshBasicMaterial({ opacity: 0, transparent: true
+				,  depthWrite: false, depthTest: false
+				});
+
+		var L = 25;
+		var xz = [[0,L], [0,-L],[-L,0],[L,0]];
 		for (var i=0; i<4; i++){	
-			bumper = new Physijs.BoxMesh( bumper_geom, invisible_material, 0, { restitution: .2 } );
-			bumper.position.y = 1;
-			bumper.position.x = xz[i][0];
-			bumper.position.z = xz[i][1];
-			if (bumper.position.z != 0)		bumper.rotation.y = Math.PI / 2;
+			const bumper = new Physijs.BoxMesh( bumper_geom, invisible_material, 0, { restitution: .2 } );
+            bumper.position.set(xz[i][0], 1, xz[i][1]);
+
+			if (bumper.position.z == 0)		bumper.rotation.y = Math.PI / 2;
 		//	bumper.receiveShadow = true;
 		//	bumper.castShadow = false;
 			scene.add( bumper );
-		}*/
+		}
 
 
 		intersect_plane = new THREE.Mesh(
 			new THREE.PlaneGeometry( 150, 150 ),
-			new THREE.MeshBasicMaterial({ opacity: 0, transparent: true
-				,  depthWrite: false, depthTest: false
-				})
+			invisible_material
 		);
 		intersect_plane.rotation.x = Math.PI / -2;
 		scene.add( intersect_plane );
@@ -257,7 +261,7 @@
 						}
 				});
 
-		for (var i=0; i<30; i++)
+		for (var i=0; i<60; i++)
 			createBlock(i);
 
 
@@ -281,51 +285,48 @@
 			blocks[i].material = new THREE.MeshPhongMaterial( {color: c} );
 		}		
 	}
+    function rnd(x){ return (Math.random()+0.5)*x;}
 	function createBlock( i ){
 		var geometry, shape;
-		var L = 5;
+		var L = 3;
 
                 var rgb = Math.floor( Math.random() * 0xFFFFFF);
                 var material = new THREE.MeshPhongMaterial( {color: rgb} );
-		var a = Math.random()*L, b = Math.random()*L, c = Math.random()*L;
+		var a = rnd(L), b = rnd(L), c = rnd(L);
 
 	 	switch(i%7){
 			case 0: geometry = new THREE.CubeGeometry( a, b, c ); 
 				shape = new Physijs.BoxMesh(	geometry, material );
-				blocks.push( shape) ;
 				break;
-		 	case 1: geometry = new THREE.ConeGeometry( a, b, 32 ); 
+		 	case 1: geometry = new THREE.ConeGeometry( a*0.5, b, 32 ); 
 				shape = new Physijs.ConeMesh(	geometry, material );
-				blocks.push( shape) ;
 				break;
-			case 2: geometry = new THREE.CylinderGeometry( a, b, c, 32 ); 
+			case 2: geometry = new THREE.CylinderGeometry( a*0.5, a*0.5, c, 32 ); 
 				shape = new Physijs.CylinderMesh( geometry, material );
-				blocks.push( shape) ;
 				break;
-                        case 3: geometry = new THREE.SphereGeometry( a, 32,32 ); 
+            case 3: geometry = new THREE.SphereGeometry( a/2, 32,32 ); 
 				shape = new Physijs.SphereMesh(	geometry, material );
-				blocks.push( shape) ;
 				break;
-
 			case 4:
 			case 5:
 			case 6:
-                                var mass = 1;
+                var mass = 1;
 				var str = "QWERTYUIOPASDFGHJKLZXCVBNM";
 				str = str[Math.floor(Math.random()*str.length)];
-				shape = createLetter(material, font, str, mass, L);
+				shape = createLetter(material, font, str, mass, rnd(1.3*L));
                 }
-
+        if (i%7 <4){shape.mv = shape;}
 		
 		shape.castShadow = true;
 		shape.receiveShadow = true;
 
-		shape.position.set(50 * (Math.random()-0.5), 5,  50 * (Math.random()-0.5));		
+		shape.position.set(40 * (Math.random()-0.5), 20*Math.random(),  40 * (Math.random()-0.5));		
 		shape.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
 
 		shape.__dirtyPosition = true;
 		shape.__dirtyRotation = true;
 		
+        blocks.push( shape) ;
 		scene.add( shape );
 	}
       function createLetter(material, font, text, mass, L){
@@ -353,6 +354,8 @@
 				material, mass
 			);
 	obj.add( back );
+    back.mv = obj;
+    obj.mv = obj;
 	blocks.push(back);
 
 	obj.castShadow = true;
