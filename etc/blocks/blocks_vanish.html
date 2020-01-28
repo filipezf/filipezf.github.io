@@ -361,23 +361,20 @@
 
 
 	initEventHandling = (function() {
-		var _vector = new THREE.Vector3,
-			projector = new THREE.Projector(),
-			handleMouseDown, handleMouseMove, handleMouseUp;
+ 		var raycaster = new THREE.Raycaster(); // create once
+                        var mouse = new THREE.Vector2(); // create once
+			var handleMouseDown, handleMouseMove, handleMouseUp;
+		
 		
 		handleMouseDown = function( evt ) {
-			var ray, intersections;
-			
-			_vector.set(
-				( evt.clientX / window.innerWidth ) * 2 - 1,
-				-( evt.clientY / window.innerHeight ) * 2 + 1,
-				1
-			);
+			mouse.x = ( evt.clientX / window.innerWidth ) * 2 - 1;
+                        mouse.y = - (evt.clientY / window.innerHeight ) * 2 + 1;
 
-			projector.unprojectVector( _vector, camera );
-			
-			ray = new THREE.Raycaster( camera.position, _vector.sub( camera.position ).normalize() );
-			intersections = ray.intersectObjects( blocks );
+                        raycaster.setFromCamera( mouse, camera );
+
+			const recursiveFlag = false;
+                        var intersections = raycaster.intersectObjects( blocks , recursiveFlag );
+                        
 
 			if ( intersections.length > 0 ) {
 				selected_block = intersections[0].object;
